@@ -21,6 +21,11 @@ const secrets = {
           apiSecret: <string>process.env.CLOUDINARY_API_SECRET,
           apiKey: <string>process.env.CLOUDINARY_API_KEY,
      },
+     redis: {
+          password: <string>process.env.REDIS_PASSWORD,
+          host: <string>process.env.REDIS_HOST,
+          port: <string | number>process.env.REDIS_PORT,
+     },
 };
 
 export default secrets;

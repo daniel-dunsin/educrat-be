@@ -11,11 +11,13 @@ import sendMail from './email.service';
 import secrets from '../constants/secrets.const';
 import { Token, User } from '../schema/interfaces/user.interface';
 import JwtHelper from '../helpers/jwt.helper';
+import redisCache from './cache.service';
 
 // helpers
 async function auth(user: User) {
-     const acessToken = await JwtHelper.sign(user?._id);
-     return { ...user, acessToken };
+     const accessToken = await JwtHelper.sign(user?._id);
+     await redisCache.set(`user:${user._id}`, user);
+     return { ...user, accessToken };
 }
 
 async function findOrCreateToken(data: CreateTokenDTO): Promise<Token> {
