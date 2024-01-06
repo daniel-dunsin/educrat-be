@@ -4,3 +4,4 @@ indent_size = 5
 
 [*.ts]
 quote_type = "single"
+
