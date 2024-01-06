@@ -29,5 +29,7 @@ const UserSchema = createSchema<User>({
      },
 });
 
+UserSchema.index({ email: 1, username: 1 });
+
 const UserModel = mongoose.model(Collections.USER, UserSchema);
 export default UserModel;

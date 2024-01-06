@@ -12,6 +12,10 @@ const TokenSchema = createSchema<Token>({
           trim: true,
           match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'enter a valid email'],
      },
+     code: {
+          type: String,
+          required: false,
+     },
      type: {
           required: true,
           type: String,
@@ -22,6 +26,8 @@ const TokenSchema = createSchema<Token>({
           required: true,
      },
 });
+
+TokenSchema.index({ email: 1 });
 
 const TokenModel = mongoose.model(Collections.TOKEN, TokenSchema);
 export default TokenModel;

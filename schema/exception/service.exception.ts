@@ -1,10 +1,9 @@
-export default class ServiceException extends Error {
+export default class ServiceException<T = string> extends Error {
      statusCode: number;
-     message: string;
-     constructor(statusCode: number, message: string) {
-          super(message);
+
+     constructor(statusCode: number, message: T) {
+          super(message as string);
           this.statusCode = statusCode;
-          this.message = message;
           Error.captureStackTrace(this, this.constructor);
      }
 }

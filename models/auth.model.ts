@@ -27,6 +27,8 @@ const AuthSchema = createSchema<Auth>({
      },
 });
 
+AuthSchema.index({ email: 1, username: 1 });
+
 const AuthModel = mongoose.model(Collections.AUTH, AuthSchema);
 
 export default AuthModel;
