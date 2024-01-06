@@ -19,3 +19,8 @@ export interface CreateTokenDTO {
      email: string;
      code?: string;
 }
+
+export interface VerifyAccountDTO {
+     code: string;
+     token: string;
+}
