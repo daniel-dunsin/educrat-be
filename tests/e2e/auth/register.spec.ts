@@ -41,6 +41,7 @@ describe('registration', () => {
                // @ts-ignore
                const CreateAuthMock = jest.spyOn(AuthModel, 'create').mockResolvedValueOnce(authFixtures.authResponse);
                UserModel.create = jest.fn().mockResolvedValueOnce(authFixtures.userResponse);
+               TokenModel.findOne = jest.fn().mockResolvedValueOnce(null);
                TokenModel.create = jest.fn().mockResolvedValueOnce(authFixtures.verifyUserTokenResponse);
                // @ts-ignore
                sendMail.mockResolvedValueOnce(true);
