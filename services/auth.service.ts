@@ -13,11 +13,10 @@ import secrets from '../constants/secrets.const';
 export async function signUp(data: SignUpDTO) {
      const { email, password, firstName, lastName, username } = data;
 
-     const hashedPassword = await hashPassword(password);
-
      const userExists = await AuthModel.findOne({ $or: [{ username }, { email }] });
      if (userExists) throw new ServiceException(400, 'User already exists');
 
+     const hashedPassword = await hashPassword(password);
      await AuthModel.create({ email, username, password: hashedPassword });
      await UserModel.create({ email, username, firstName, lastName });
 

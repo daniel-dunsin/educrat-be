@@ -1,5 +1,7 @@
 openapi: 3.0.0
 servers:
+  - url: https://educrat-be.onrender.com/api/v1
+    description: production
   - url: http://localhost:3001/api/v1
     description: development
 info:

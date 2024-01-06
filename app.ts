@@ -17,7 +17,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(cors());
 
-const doc_path = join(__dirname, secrets.nodeEnv === 'development' ? 'api.yaml' : '../api.yaml');
+const doc_path = join(__dirname, secrets.nodeEnv === 'production' ? '../api.yaml' : 'api.yaml');
 const doc = yamljs.load(doc_path);
 app.use('/api/v1/doc', swagger.serve, swagger.setup(doc));
 app.use('/api/v1', routes);
