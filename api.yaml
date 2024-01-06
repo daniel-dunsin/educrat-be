@@ -7,6 +7,34 @@ info:
   version: 1.0.0
   description: Educrat API
 paths:
+  /auth/register:
+    post:
+      security: []
+      tags:
+        - auth
+      description: "register user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                username:
+                  type: string
+      responses:
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+        400:
+          $ref: "#/components/schemas/DefaultError"
 
 components:
   schemas:
@@ -20,7 +48,7 @@ components:
               message:
                 type: string
     DefaultError:
-      description: "Success"
+      description: "Error"
       content:
         application/json:
           schema:
@@ -33,3 +61,4 @@ components:
       type: http
       scheme: bearer
 tags:
+  - name: auth

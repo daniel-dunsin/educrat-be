@@ -52,8 +52,11 @@
           <div class="container">
                <h1>Email Verification</h1>
                <p>Dear <%= username %>,</p>
-               <p>Thank you for signing up with Educraft. To complete your registration, this is your verification OTP below:</p>
-               <p><b><%= otp %></b></p>
+               <p>
+                    Thank you for signing up with Educraft. To complete your registration, please click the verification
+                    link below:
+               </p>
+               <a href="<%= link %>" class="verification-link">Verify Email</a>
                <p>If you did not sign up for an account on Educraft, please ignore this email.</p>
                <div class="footer">
                     <p>&copy; 2024 Educraft. All rights reserved.</p>
