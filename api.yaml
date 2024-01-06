@@ -1,4 +1,35 @@
 openapi: 3.0.0
 servers:
-     - url: http://localhost:3001
-       description: development
+  - url: http://localhost:3001/api/v1
+    description: development
+info:
+  title: Educrat
+  version: 1.0.0
+  description: Educrat API
+paths:
+
+components:
+  schemas:
+    DefaultSuccess:
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    DefaultError:
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+tags:
