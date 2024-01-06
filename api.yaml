@@ -37,7 +37,76 @@ paths:
           $ref: "#/components/schemas/DefaultSuccess"
         400:
           $ref: "#/components/schemas/DefaultError"
-
+  /auth/verification:
+    post:
+      tags:
+        - auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                token:
+                  type: string
+      responses:
+        200:
+          $ref: "#/components/schemas/DefaultSucess"
+        500:
+          $ref: "#/components/schemas/DefaultError"
+  /auth/verification/request:
+    post:
+      description: "request for verification link"
+      tags:
+        - auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+        500:
+          $ref: "#/components/schemas/DefaultError"
+  /auth/login:
+    post:
+      tags:
+        - auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                credentials:
+                  type: string
+                password:
+                  type: string
+      responses:
+        500:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  user:
+                    $ref: "#/components/schemas/User"
 components:
   schemas:
     DefaultSuccess:
@@ -58,6 +127,23 @@ components:
             properties:
               error:
                 type: string
+
+    # Major Schemas
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        profilePicture:
+          type: string
+        _id:
+          type: string
   securitySchemes:
     bearer:
       type: http

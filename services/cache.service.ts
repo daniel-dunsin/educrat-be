@@ -31,7 +31,7 @@ class RedisCache {
                value = JSON.stringify(value) as T;
           }
 
-          return await this.client.set(key, value as number, { EX: this.ONE_DAY });
+          return await this.client.set(key, value as Buffer, { EX: this.ONE_DAY });
      }
 
      public async get<T>(key: string): Promise<T | null> {

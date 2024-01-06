@@ -17,7 +17,7 @@ import redisCache from './cache.service';
 async function auth(user: User) {
      const accessToken = await JwtHelper.sign(user?._id);
      await redisCache.set(`user:${user._id}`, user);
-     return { ...user, accessToken };
+     return { user, accessToken };
 }
 
 async function findOrCreateToken(data: CreateTokenDTO): Promise<Token> {
@@ -26,8 +26,7 @@ async function findOrCreateToken(data: CreateTokenDTO): Promise<Token> {
           token.code = data.code;
           token.value = data.value;
           token = await token.save();
-     }
-     {
+     } else {
           token = await TokenModel.create({ ...data });
      }
      return token;
@@ -73,6 +72,7 @@ export async function verifyAccount(data: VerifyAccountDTO) {
 export async function requestVerificationLink(email: string) {
      const auth = await AuthModel.findOne({ email });
      if (!auth) throw new ServiceException(404, 'User does not exist');
+     if (auth.verified) throw new ServiceException(400, 'User is already verified');
 
      const token = v4();
      const code = String(Math.floor(Math.random() * 99999999));
