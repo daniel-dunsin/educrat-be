@@ -1,4 +1,66 @@
 openapi: 3.0.0
 servers:
-     - url: http://localhost:3001
-       description: development
+  - url: https://educrat-be.onrender.com/api/v1
+    description: production
+  - url: http://localhost:3001/api/v1
+    description: development
+info:
+  title: Educrat
+  version: 1.0.0
+  description: Educrat API
+paths:
+  /auth/register:
+    post:
+      security: []
+      tags:
+        - auth
+      description: "register user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                username:
+                  type: string
+      responses:
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+        400:
+          $ref: "#/components/schemas/DefaultError"
+
+components:
+  schemas:
+    DefaultSuccess:
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    DefaultError:
+      description: "Error"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+tags:
+  - name: auth

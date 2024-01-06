@@ -20,4 +20,5 @@ export interface Token extends DefaultModel {
      type: TokenTypes;
      value: string;
      email: string;
+     code?: string;
 }

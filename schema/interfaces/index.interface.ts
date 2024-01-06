@@ -5,5 +5,3 @@ export interface DefaultModel {
      createdAt: Date;
      updatedAt: Date;
 }
-
-export type Relations<T = unknown> = string | Types.ObjectId | T;
