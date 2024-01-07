@@ -6,8 +6,9 @@
      "scripts": {
           "test": "jest --watchAll --detectOpenHandles",
           "jest:setup": "ts-jest config:init",
-          "start": "tsc -p . && node ./build/server.js",
-          "dev": "nodemon server.ts"
+          "start": "node ./build/server.js",
+          "dev": "nodemon server.ts",
+          "prod:build": "npm install && tsc -p ."
      },
      "repository": {
           "type": "git",
