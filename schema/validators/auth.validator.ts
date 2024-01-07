@@ -29,3 +29,9 @@ export const signInInput = object({
           password: string().required('password is required'),
      }),
 });
+
+export const googleAuthInput = object({
+     body: object({
+          accessToken: string().required('accessToken is required'),
+     }),
+});

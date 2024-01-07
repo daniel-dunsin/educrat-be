@@ -24,3 +24,11 @@ export interface VerifyAccountDTO {
      code: string;
      token: string;
 }
+
+export interface VerifyGoogleUserRes {
+     email: string;
+     username: string;
+     profilePicture: string;
+     firstName: string;
+     lastName: string;
+}

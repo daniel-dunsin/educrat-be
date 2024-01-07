@@ -4,7 +4,7 @@ import { renderEmailTemplate } from '../helpers/email.helper';
 import AuthModel from '../models/auth.model';
 import TokenModel from '../models/token.model';
 import UserModel from '../models/user.model';
-import { CreateTokenDTO, SignInDTO, SignUpDTO, VerifyAccountDTO } from '../schema/dto/auth.dto';
+import { CreateTokenDTO, SignInDTO, SignUpDTO, VerifyAccountDTO, VerifyGoogleUserRes } from '../schema/dto/auth.dto';
 import { TokenTypes } from '../schema/enums/auth.enums';
 import ServiceException from '../schema/exception/service.exception';
 import sendMail from './email.service';
@@ -12,6 +12,7 @@ import secrets from '../constants/secrets.const';
 import { Token, User } from '../schema/interfaces/user.interface';
 import JwtHelper from '../helpers/jwt.helper';
 import redisCache from './cache.service';
+import { google } from 'googleapis';
 
 // helpers
 async function auth(user: User) {
@@ -57,7 +58,7 @@ export async function signUp(data: SignUpDTO) {
 export async function verifyAccount(data: VerifyAccountDTO) {
      const { code, token } = data;
 
-     const dbToken = await TokenModel.findOne({ code, token, type: TokenTypes.userVerification });
+     const dbToken = await TokenModel.findOne({ code, value: token, type: TokenTypes.userVerification });
      if (!dbToken) throw new ServiceException(404, 'Token does not exist or has expired');
 
      const auth = await AuthModel.findOne({ email: dbToken.email });
@@ -97,5 +98,53 @@ export async function signIn(data: SignInDTO) {
      const isMatch = await comparePassword(password, dbAuth.password);
      if (!isMatch) throw new ServiceException(400, 'Invalid Login Credentials');
 
-     return { ...auth(user as User) };
+     return await auth(user as User);
+}
+
+export async function verifyGoogleUser(accessToken: string): Promise<VerifyGoogleUserRes> {
+     const oauthClient = new google.auth.OAuth2({
+          clientId: secrets.google.clientId,
+          clientSecret: secrets.google.clientSecret,
+     });
+     oauthClient.setCredentials({ access_token: accessToken });
+
+     const authenticator = google.oauth2({ auth: oauthClient, version: 'v2' });
+
+     try {
+          const user = await authenticator.userinfo.get();
+
+          return {
+               email: <string>user.data.email,
+               username: <string>user.data.name,
+               firstName: <string>user.data.given_name,
+               lastName: <string>user.data.family_name,
+               profilePicture: <string>user.data.picture,
+          };
+     } catch (error) {
+          throw new ServiceException(400, `Unable to verify google user ${error}`);
+     }
+}
+
+export async function signInWithGoogle(accessToken: string) {
+     const googleUser = await verifyGoogleUser(accessToken);
+     if (!googleUser) throw new ServiceException(500, 'Unable to sign in with google');
+
+     let dbAuth = await AuthModel.findOne({ email: googleUser.email });
+
+     if (dbAuth) {
+          const dbUser = await UserModel.findOne({ email: googleUser.email });
+          if (!dbAuth.verified) dbAuth.verified = true;
+          await dbAuth.save();
+          return await auth(dbUser as User);
+     } else {
+          dbAuth = await AuthModel.create({ email: googleUser.email, username: googleUser.username, verified: true });
+          const dbUser = await UserModel.create({
+               email: googleUser.email,
+               username: googleUser.username,
+               profilePicture: googleUser.profilePicture,
+               firstName: googleUser.firstName,
+               lastName: googleUser.lastName,
+          });
+          return await auth(dbUser);
+     }
 }
