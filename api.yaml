@@ -107,6 +107,34 @@ paths:
                     type: string
                   user:
                     $ref: "#/components/schemas/User"
+  /auth/google:
+    post:
+      tags:
+        - auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+      responses:
+        500:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  user:
+                    $ref: "#/components/schemas/User"
+
 components:
   schemas:
     DefaultSuccess:

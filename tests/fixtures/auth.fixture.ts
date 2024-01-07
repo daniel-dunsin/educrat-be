@@ -4,6 +4,7 @@ import { TokenTypes } from '../../schema/enums/auth.enums';
 
 const userId = String(new Types.ObjectId());
 const tokenId = String(new Types.ObjectId());
+const accessToken = 'testAccessToken';
 
 const request = {
      username: 'testusername',
@@ -23,6 +24,7 @@ const authResponse = {
      email: request.email,
      verified: false,
      password: hashedPassword,
+     save: jest.fn().mockResolvedValueOnce(null),
 };
 
 const userResponse = {
@@ -40,6 +42,7 @@ const verifyUserTokenResponse = {
      code,
      type: TokenTypes.userVerification,
      _id: tokenId,
+     deleteOne: jest.fn().mockResolvedValueOnce(null),
 };
 
 const authFixtures = {
@@ -50,6 +53,7 @@ const authFixtures = {
      userResponse,
      authResponse,
      verifyUserTokenResponse,
+     accessToken,
 };
 
 export default authFixtures;

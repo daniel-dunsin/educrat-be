@@ -26,7 +26,7 @@ export const requestVerificationInput = object({
 export const signInInput = object({
      body: object({
           credential: string().required('credential is required'),
-          password: string().required('password is required'),
+          password: string().required('password is required').min(8, 'Password should not be less than 8 characters'),
      }),
 });
 
