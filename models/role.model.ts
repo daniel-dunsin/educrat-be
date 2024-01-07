@@ -10,5 +10,7 @@ const RoleSchema = createSchema<Role>({
      userId: { type: Types.ObjectId, ref: Collections.USER, required: [true, 'role userId is required'] },
 });
 
+RoleSchema.index({ name: 1 });
+
 const RoleModel = mongoose.model(Collections.ROLE, RoleSchema);
 export default RoleModel;
