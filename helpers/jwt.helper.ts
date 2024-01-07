@@ -11,10 +11,10 @@ class JWT {
           return token;
      }
 
-     public async verify<T extends Jwt>(token: string): Promise<T> {
-          const payload = (await verify(token, this.decode())) as T;
+     public async verify<T = { userId: string }>(token: string): Promise<T> {
+          const payload = await verify(token, this.decode());
 
-          return payload;
+          return payload as T;
      }
 }
 

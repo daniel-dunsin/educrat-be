@@ -13,6 +13,7 @@ import { Token, User } from '../schema/interfaces/user.interface';
 import JwtHelper from '../helpers/jwt.helper';
 import redisCache from './cache.service';
 import { google } from 'googleapis';
+import { addStudentRole } from './role.service';
 
 // helpers
 async function auth(user: User) {
@@ -41,7 +42,8 @@ export async function signUp(data: SignUpDTO) {
 
      const hashedPassword = await hashPassword(password);
      await AuthModel.create({ email, username, password: hashedPassword });
-     await UserModel.create({ email, username, firstName, lastName });
+     const user = await UserModel.create({ email, username, firstName, lastName });
+     await addStudentRole(user);
 
      const token = v4();
      const code = String(Math.floor(Math.random() * 99999999));
@@ -93,7 +95,7 @@ export async function signIn(data: SignInDTO) {
      const dbAuth = await AuthModel.findOne({ $or: [{ username: credential }, { email: credential }] });
      if (!dbAuth) throw new ServiceException(404, 'Invalid Login Credentials');
      if (!dbAuth.verified) throw new ServiceException(400, 'User is not verified');
-     const user = await UserModel.findOne({ email: dbAuth.email });
+     const user = await UserModel.findOne({ email: dbAuth.email }).populate({ path: 'roles' });
 
      const isMatch = await comparePassword(password, dbAuth.password);
      if (!isMatch) throw new ServiceException(400, 'Invalid Login Credentials');
@@ -132,7 +134,7 @@ export async function signInWithGoogle(accessToken: string) {
      let dbAuth = await AuthModel.findOne({ email: googleUser.email });
 
      if (dbAuth) {
-          const dbUser = await UserModel.findOne({ email: googleUser.email });
+          const dbUser = await UserModel.findOne({ email: googleUser.email }).populate({ path: 'roles' });
           if (!dbAuth.verified) dbAuth.verified = true;
           await dbAuth.save();
           return await auth(dbUser as User);
@@ -145,6 +147,7 @@ export async function signInWithGoogle(accessToken: string) {
                firstName: googleUser.firstName,
                lastName: googleUser.lastName,
           });
-          return await auth(dbUser);
+          const role = await addStudentRole(dbUser);
+          return await auth({ ...dbUser, roles: [role] });
      }
 }

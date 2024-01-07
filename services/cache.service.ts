@@ -39,6 +39,7 @@ class RedisCache {
 
           let data = await this.client.get(key);
 
+          if (!data) return null;
           try {
                data = JSON.parse(data as string);
           } catch (error) {

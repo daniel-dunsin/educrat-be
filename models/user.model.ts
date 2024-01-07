@@ -31,5 +31,12 @@ const UserSchema = createSchema<User>({
 
 UserSchema.index({ email: 1, username: 1 });
 
+UserSchema.virtual('roles', {
+     justOne: false,
+     localField: '_id',
+     foreignField: 'userId',
+     ref: Collections.ROLE,
+});
+
 const UserModel = mongoose.model(Collections.USER, UserSchema);
 export default UserModel;

@@ -1,5 +1,6 @@
 import { TokenTypes } from '../enums/auth.enums';
 import { DefaultModel } from './index.interface';
+import { Role } from './roles.interface';
 
 export interface User extends DefaultModel {
      email: string;
@@ -7,6 +8,7 @@ export interface User extends DefaultModel {
      firstName: string;
      lastName: string;
      profilePicture: string;
+     roles: Role[];
 }
 
 export interface Auth extends DefaultModel {

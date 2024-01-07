@@ -3,28 +3,28 @@ import { config } from 'dotenv';
 config();
 
 const secrets = {
-     databaseUrl: <string>process.env.DATABASE_URL,
-     jwtSecret: <string>process.env.JWT_SECRET,
-     port: <string>process.env.PORT,
-     frontendUrl: <string>process.env.FRONTEND_URL,
-     nodeEnv: <string>process.env.NODE_ENV,
+     databaseUrl: process.env.DATABASE_URL,
+     jwtSecret: process.env.JWT_SECRET,
+     port: process.env.PORT,
+     frontendUrl: process.env.FRONTEND_URL,
+     nodeEnv: process.env.NODE_ENV,
      nodemailer: {
-          pass: <string>process.env.NODEMAILER_PASS,
-          email: <string>process.env.NODEMAILER_EMAIL,
+          pass: process.env.NODEMAILER_PASS,
+          email: process.env.NODEMAILER_EMAIL,
      },
      google: {
-          clientId: <string>process.env.GOOGLE_CLIENT_ID,
-          clientSecret: <string>process.env.GOOGLE_CLIENT_SECRET,
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
      },
      cloudinary: {
-          cloudName: <string>process.env.CLOUDINARY_CLOUD_NAME,
-          apiSecret: <string>process.env.CLOUDINARY_API_SECRET,
-          apiKey: <string>process.env.CLOUDINARY_API_KEY,
+          cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+          apiSecret: process.env.CLOUDINARY_API_SECRET,
+          apiKey: process.env.CLOUDINARY_API_KEY,
      },
      redis: {
-          password: <string>process.env.REDIS_PASSWORD,
-          host: <string>process.env.REDIS_HOST,
-          port: <string | number>process.env.REDIS_PORT,
+          password: process.env.REDIS_PASSWORD,
+          host: process.env.REDIS_HOST,
+          port: process.env.REDIS_PORT,
      },
 };
 
