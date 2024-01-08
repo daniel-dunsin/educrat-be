@@ -1,6 +1,8 @@
 import { Types } from 'mongoose';
 import DEFAULT_IMAGES from '../../constants/images.const';
 import { TokenTypes } from '../../schema/enums/auth.enums';
+import { RoleNames } from '../../schema/enums/role.enums';
+import roleFixtures from './role.fixture';
 
 const userId = String(new Types.ObjectId());
 const tokenId = String(new Types.ObjectId());
@@ -34,6 +36,7 @@ const userResponse = {
      firstName: request.firstName,
      lastName: request.lastName,
      profilePicture: DEFAULT_IMAGES.profilePicture,
+     roles: [roleFixtures.studentRole],
 };
 
 const verifyUserTokenResponse = {
@@ -54,6 +57,7 @@ const authFixtures = {
      authResponse,
      verifyUserTokenResponse,
      accessToken,
+     userId,
 };
 
 export default authFixtures;

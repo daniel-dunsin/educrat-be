@@ -38,7 +38,10 @@ describe('login user', () => {
      describe('given user exist', () => {
           beforeEach(() => {
                jest.spyOn(AuthModel, 'findOne').mockResolvedValueOnce({ ...authFixtures.authResponse, verified: true });
-               jest.spyOn(UserModel, 'findOne').mockResolvedValueOnce(authFixtures.userResponse);
+               // @ts-ignore
+               UserModel.findOne = jest.fn(() => ({
+                    populate: jest.fn().mockResolvedValueOnce(authFixtures.userResponse),
+               }));
                // @ts-ignore
                jest.spyOn(jwt, 'sign').mockReturnValueOnce(authFixtures.accessToken);
                redisCache.set = jest.fn();

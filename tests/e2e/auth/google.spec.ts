@@ -6,6 +6,8 @@ import AuthModel from '../../../models/auth.model';
 import UserModel from '../../../models/user.model';
 import jwt from 'jsonwebtoken';
 import redisCache from '../../../services/cache.service';
+import RoleModel from '../../../models/role.model';
+import roleFixtures from '../../fixtures/role.fixture';
 
 const api = supertest(app);
 
@@ -32,6 +34,8 @@ describe('google auth', () => {
                jest.spyOn(AuthModel, 'create').mockResolvedValueOnce(authFixtures.authResponse);
                // @ts-ignore
                jest.spyOn(UserModel, 'create').mockResolvedValueOnce(authFixtures.userResponse);
+               // @ts-ignore
+               jest.spyOn(RoleModel, 'create').mockResolvedValueOnce(roleFixtures.studentRole);
                // @ts-ignore
                jest.spyOn(jwt, 'sign').mockResolvedValueOnce(authFixtures.accessToken);
                redisCache.set = jest.fn();
