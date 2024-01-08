@@ -4,7 +4,14 @@ import { renderEmailTemplate } from '../helpers/email.helper';
 import AuthModel from '../models/auth.model';
 import TokenModel from '../models/token.model';
 import UserModel from '../models/user.model';
-import { CreateTokenDTO, SignInDTO, SignUpDTO, VerifyAccountDTO, VerifyGoogleUserRes } from '../schema/dto/auth.dto';
+import {
+     CreateTokenDTO,
+     ResetPasswordDTO,
+     SignInDTO,
+     SignUpDTO,
+     VerifyAccountDTO,
+     VerifyGoogleUserRes,
+} from '../schema/dto/auth.dto';
 import { TokenTypes } from '../schema/enums/auth.enums';
 import ServiceException from '../schema/exception/service.exception';
 import sendMail from './email.service';
@@ -14,6 +21,7 @@ import JwtHelper from '../helpers/jwt.helper';
 import redisCache from './cache.service';
 import { google } from 'googleapis';
 import { addStudentRole } from './role.service';
+import crypto from 'crypto';
 
 // helpers
 async function auth(user: User) {
@@ -150,4 +158,32 @@ export async function signInWithGoogle(accessToken: string) {
           const role = await addStudentRole(dbUser);
           return await auth({ ...dbUser, roles: [role] });
      }
+}
+
+export async function forgotPassword(email: string) {
+     const user = await AuthModel.findOne({ email });
+     if (user) {
+          const token = crypto.randomBytes(32).toString('hex');
+          const code = String(Math.floor(Math.random() * 99999999));
+          const link = `${secrets.frontendUrl}/reset-password/${code}/${token}`;
+          await findOrCreateToken({ value: token, email, code, type: TokenTypes.passwordReset });
+          await sendMail({
+               to: email,
+               subject: 'Password Reset',
+               html: renderEmailTemplate('forgot-password.ejs', { username: user.username, link }),
+          });
+     }
+}
+
+export async function resetPassword(data: ResetPasswordDTO) {
+     const { token, code, password } = data;
+     const dbToken = await TokenModel.findOne({ value: token, code, type: TokenTypes.passwordReset });
+     if (!dbToken) {
+          throw new ServiceException(404, 'Token/Code is invalid');
+     }
+
+     const hashedPassword = await hashPassword(password);
+
+     await AuthModel.findOneAndUpdate({ email: dbToken.email }, { password: hashedPassword });
+     await dbToken.deleteOne();
 }

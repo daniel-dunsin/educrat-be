@@ -35,3 +35,17 @@ export const googleAuthInput = object({
           accessToken: string().required('accessToken is required'),
      }),
 });
+
+export const forgotPasswordInput = object({
+     body: object({
+          email: string().required('email is required').email('enter a valid email'),
+     }),
+});
+
+export const resetPasswordInput = object({
+     body: object({
+          password: string().required('password is required').min(8, 'Password should not be less than 8 characters'),
+          token: string().required('token is required'),
+          code: string().required('code is required'),
+     }),
+});

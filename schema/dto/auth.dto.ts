@@ -32,3 +32,9 @@ export interface VerifyGoogleUserRes {
      firstName: string;
      lastName: string;
 }
+
+export interface ResetPasswordDTO {
+     token: string;
+     code: string;
+     password: string;
+}
