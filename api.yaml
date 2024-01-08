@@ -134,9 +134,52 @@ paths:
                     type: string
                   user:
                     $ref: "#/components/schemas/User"
-
+  /auth/password/forgot:
+    post:
+      description: request password reset link
+      tags:
+        - auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        500:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+  /auth/password/reset:
+    patch:
+      security: []
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                token:
+                  type: string
+                password:
+                  type: string
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
 components:
   schemas:
+    # Defaults
     DefaultSuccess:
       description: "Success"
       content:
