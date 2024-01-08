@@ -1,9 +1,10 @@
 import { Data, renderFile } from 'ejs';
 import { join } from 'path';
 import ServiceException from '../schema/exception/service.exception';
+import secrets from '../constants/secrets.const';
 
 export function renderEmailTemplate<T extends Data = {}>(template: string, data: T): string {
-     const path = join(__dirname, '../templates/', template);
+     const path = join(__dirname, secrets.nodeEnv === 'production' ? '../../templates/' : '../templates/', template);
 
      let html = '';
 
