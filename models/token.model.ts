@@ -8,7 +8,6 @@ const TokenSchema = createSchema<Token>({
      email: {
           type: String,
           required: [true, 'email is required'],
-          unique: true,
           trim: true,
           match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'enter a valid email'],
      },
