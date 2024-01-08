@@ -48,6 +48,15 @@ const verifyUserTokenResponse = {
      deleteOne: jest.fn().mockResolvedValueOnce(null),
 };
 
+const passwordResetTokenResponse = {
+     email: request.email,
+     token,
+     code,
+     type: TokenTypes.passwordReset,
+     _id: tokenId,
+     deleteOne: jest.fn().mockResolvedValueOnce(null),
+};
+
 const authFixtures = {
      request,
      token,
@@ -58,6 +67,7 @@ const authFixtures = {
      verifyUserTokenResponse,
      accessToken,
      userId,
+     passwordResetTokenResponse,
 };
 
 export default authFixtures;

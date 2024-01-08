@@ -30,7 +30,7 @@ async function auth(user: User) {
      return { user, accessToken };
 }
 
-async function findOrCreateToken(data: CreateTokenDTO): Promise<Token> {
+export async function findOrCreateToken(data: CreateTokenDTO): Promise<Token> {
      let token = await TokenModel.findOne({ email: data.email, type: data.type });
      if (token) {
           token.code = data.code;
