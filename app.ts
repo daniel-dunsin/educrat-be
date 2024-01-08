@@ -16,6 +16,7 @@ app.use(rateLimit({ windowMs: ONE_HOUR, max: MAX_REQUESTS }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(cors());
+app.enable('trust proxy');
 
 const doc_path = join(__dirname, secrets.nodeEnv === 'production' ? '../api.yaml' : 'api.yaml');
 const doc = yamljs.load(doc_path);
