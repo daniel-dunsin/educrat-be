@@ -9,6 +9,12 @@ const studentRole = {
      userId: userId,
 };
 
+const instructorRole = {
+     name: RoleNames.INSTRUCTOR,
+     description: '',
+     userId: userId,
+};
+
 const roleFixtures = {
      studentRole,
 };

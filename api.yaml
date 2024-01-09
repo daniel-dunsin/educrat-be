@@ -177,6 +177,63 @@ paths:
           $ref: "#/components/schemas/DefaultError"
         200:
           $ref: "#/components/schemas/DefaultSuccess"
+  /user:
+    get:
+      security:
+        - bearer: []
+      tags:
+        - user
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    put:
+      security:
+        - bearer: []
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                about:
+                  type: string
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /user/instructor:
+    put:
+      security:
+        - bearer: []
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            type: object
+            properties:
+              about:
+                type: string
+      responses:
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+        500:
+          $ref: "#/components/schemas/DefaultError"
 components:
   schemas:
     # Defaults
@@ -234,3 +291,4 @@ components:
       scheme: bearer
 tags:
   - name: auth
+  - name: user
