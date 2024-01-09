@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import asyncHandler from '../helpers/async,helper';
+import asyncHandler from '../helpers/async.helper';
 import { ResetPasswordDTO, SignInDTO, SignUpDTO, VerifyAccountDTO } from '../schema/dto/auth.dto';
 import {
      forgotPassword,

@@ -8,6 +8,7 @@ export interface User extends DefaultModel {
      firstName: string;
      lastName: string;
      profilePicture: string;
+     about: string;
      roles: Role[];
 }
 

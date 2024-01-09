@@ -15,7 +15,6 @@ const MAX_REQUESTS = 100;
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(cors());
-app.enable('trust proxy');
 app.use(rateLimit({ windowMs: ONE_HOUR, max: MAX_REQUESTS }));
 
 const doc_path = join(__dirname, secrets.nodeEnv === 'production' ? '../api.yaml' : 'api.yaml');

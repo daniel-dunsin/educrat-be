@@ -2,6 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import ServiceException from '../schema/exception/service.exception';
 import JwtHelper from '../helpers/jwt.helper';
 
+declare global {
+     namespace Express {
+          interface Request {
+               userId?: string;
+          }
+     }
+}
+
 export async function authenticate(req: Request, res: Response, next: NextFunction) {
      try {
           const authHeader = req.headers['authorization'];

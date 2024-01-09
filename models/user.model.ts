@@ -27,6 +27,10 @@ const UserSchema = createSchema<User>({
           type: String,
           default: DEFAULT_IMAGES.profilePicture,
      },
+     about: {
+          type: String,
+          default: '',
+     },
 });
 
 UserSchema.index({ email: 1, username: 1 });
