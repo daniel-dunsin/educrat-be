@@ -21,5 +21,7 @@ const SocialSchema = createSchema<Socials>({
      },
 });
 
+SocialSchema.index({ type: 1 });
+
 const SocialsModel = mongoose.model(Collections.SOCIALS, SocialSchema);
 export default SocialsModel;
