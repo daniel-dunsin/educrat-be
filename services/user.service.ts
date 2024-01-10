@@ -43,7 +43,7 @@ export async function becomeInstructor(data: BecomeInstructorDTO) {
                await session.commitTransaction();
           } catch (error) {
                await session.abortTransaction();
-               throw new ServiceException(400, `Unable to make user an instructor ${error}`);
+               return error;
           }
      });
 }
