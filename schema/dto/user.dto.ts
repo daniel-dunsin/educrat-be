@@ -6,15 +6,14 @@ export interface UpdateSocialsDTO {
 }
 export interface BecomeInstructorDTO {
      userId: string;
-     about: string;
+     biography: string;
      headline: string;
      socials: UpdateSocialsDTO[];
-     profilePicture: string;
 }
 
 export interface UpdateUserDTO {
      userId: string;
-     about: string;
+     biography: string;
      headline: string;
 }
 

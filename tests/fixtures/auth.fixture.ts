@@ -38,7 +38,7 @@ const userResponse = {
      lastName: request.lastName,
      profilePicture: DEFAULT_IMAGES.profilePicture,
      roles: [roleFixtures.studentRole],
-     about: 'random description',
+     biography: 'random description',
      headline: 'random headline',
      profilePictureId: 'random profile picture id',
      socials: [socialsFixture.twitter, socialsFixture.linkedin],

@@ -3,13 +3,14 @@ import createSchema from '.';
 import { TokenTypes } from '../schema/enums/auth.enums';
 import { Token } from '../schema/interfaces/user.interface';
 import Collections from '../schema/enums/collections.enums';
+import DEFAULT_MATCHERS from '../constants/regex.const';
 
 const TokenSchema = createSchema<Token>({
      email: {
           type: String,
           required: [true, 'email is required'],
           trim: true,
-          match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'enter a valid email'],
+          match: [DEFAULT_MATCHERS.email, 'enter a valid email'],
      },
      code: {
           type: String,

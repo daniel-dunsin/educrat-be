@@ -10,7 +10,7 @@ export interface User extends DefaultModel {
      lastName: string;
      profilePicture: string;
      profilePictureId: string;
-     about: string;
+     biography: string;
      headline: string;
      roles: Role[];
      socials: Socials[];

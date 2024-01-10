@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import createSchema from '.';
 import { Auth } from '../schema/interfaces/user.interface';
 import Collections from '../schema/enums/collections.enums';
+import DEFAULT_MATCHERS from '../constants/regex.const';
 
 const AuthSchema = createSchema<Auth>({
      email: {
@@ -9,7 +10,7 @@ const AuthSchema = createSchema<Auth>({
           required: [true, 'email is required'],
           unique: true,
           trim: true,
-          match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'enter a valid email'],
+          match: [DEFAULT_MATCHERS.email, 'enter a valid email'],
      },
      username: {
           type: String,

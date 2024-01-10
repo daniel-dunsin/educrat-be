@@ -25,7 +25,7 @@ export async function getUser(userId: string) {
 }
 
 export async function becomeInstructor(data: BecomeInstructorDTO) {
-     const { userId, about, headline, socials, profilePicture } = data;
+     const { userId, biography, headline, socials } = data;
 
      const user = await UserModel.findById(userId);
      if (!user) throw new ServiceException(404, 'User does not exist');
@@ -36,9 +36,8 @@ export async function becomeInstructor(data: BecomeInstructorDTO) {
      return await mongoose.connection.startSession().then(async (session) => {
           await session.startTransaction();
           try {
-               await updateUser({ userId, about, headline }, session);
+               await updateUser({ userId, biography, headline }, session);
                await updateUserSocials(userId, socials, session);
-               await updateProfilePicture({ userId, image: profilePicture }, session);
                await addInstructorRole(user);
                await session.commitTransaction();
           } catch (error) {

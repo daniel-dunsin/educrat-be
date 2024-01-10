@@ -204,7 +204,7 @@ paths:
             schema:
               type: object
               properties:
-                about:
+                biography:
                   type: string
                 headline:
                   type: string
@@ -230,11 +230,9 @@ paths:
             schema:
               type: object
               properties:
-                about:
+                biography:
                   type: string
                 headline:
-                  type: string
-                profilePicture:
                   type: string
                 socials:
                   type: array

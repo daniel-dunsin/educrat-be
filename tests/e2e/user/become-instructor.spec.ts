@@ -14,7 +14,7 @@ import * as cloudinary from '../../../config/upload.config';
 const api = supertest(app);
 
 const dataset = {
-     about: authFixtures.userResponse.about,
+     biography: authFixtures.userResponse.biography,
      headline: authFixtures.userResponse.headline,
      socials: [socialsFixture.twitter, socialsFixture.linkedin],
      profilePicture:

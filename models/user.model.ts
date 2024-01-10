@@ -3,6 +3,7 @@ import createSchema from '.';
 import DEFAULT_IMAGES from '../constants/images.const';
 import { User } from '../schema/interfaces/user.interface';
 import Collections from '../schema/enums/collections.enums';
+import DEFAULT_MATCHERS from '../constants/regex.const';
 
 const UserSchema = createSchema<User>({
      firstName: {
@@ -16,7 +17,7 @@ const UserSchema = createSchema<User>({
           required: [true, 'email is required'],
           unique: true,
           trim: true,
-          match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'enter a valid email'],
+          match: [DEFAULT_MATCHERS.email, 'enter a valid email'],
      },
      username: {
           type: String,
@@ -31,7 +32,7 @@ const UserSchema = createSchema<User>({
           type: String,
           default: '',
      },
-     about: {
+     biography: {
           type: String,
           default: '',
      },
