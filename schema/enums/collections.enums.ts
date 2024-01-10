@@ -3,6 +3,8 @@ enum Collections {
      AUTH = 'auth',
      TOKEN = 'token',
      ROLE = 'role',
+     SOCIALS = 'socials',
+     COURSE = 'course',
 }
 
 export default Collections;

@@ -1,6 +1,7 @@
 import { TokenTypes } from '../enums/auth.enums';
 import { DefaultModel } from './index.interface';
 import { Role } from './roles.interface';
+import { Socials } from './socials.interface';
 
 export interface User extends DefaultModel {
      email: string;
@@ -8,8 +9,11 @@ export interface User extends DefaultModel {
      firstName: string;
      lastName: string;
      profilePicture: string;
+     profilePictureId: string;
      about: string;
+     headline: string;
      roles: Role[];
+     socials: Socials[];
 }
 
 export interface Auth extends DefaultModel {

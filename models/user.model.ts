@@ -27,7 +27,15 @@ const UserSchema = createSchema<User>({
           type: String,
           default: DEFAULT_IMAGES.profilePicture,
      },
+     profilePictureId: {
+          type: String,
+          default: '',
+     },
      about: {
+          type: String,
+          default: '',
+     },
+     headline: {
           type: String,
           default: '',
      },
@@ -40,6 +48,13 @@ UserSchema.virtual('roles', {
      localField: '_id',
      foreignField: 'userId',
      ref: Collections.ROLE,
+});
+
+UserSchema.virtual('socials', {
+     justOne: false,
+     localField: '_id',
+     foreignField: 'userId',
+     ref: Collections.SOCIALS,
 });
 
 const UserModel = mongoose.model(Collections.USER, UserSchema);
