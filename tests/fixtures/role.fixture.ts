@@ -17,6 +17,7 @@ const instructorRole = {
 
 const roleFixtures = {
      studentRole,
+     instructorRole,
 };
 
 export default roleFixtures;

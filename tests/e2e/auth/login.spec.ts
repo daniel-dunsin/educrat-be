@@ -40,7 +40,9 @@ describe('login user', () => {
                jest.spyOn(AuthModel, 'findOne').mockResolvedValueOnce({ ...authFixtures.authResponse, verified: true });
                // @ts-ignore
                UserModel.findOne = jest.fn(() => ({
-                    populate: jest.fn().mockResolvedValueOnce(authFixtures.userResponse),
+                    populate: jest.fn(() => ({
+                         populate: jest.fn().mockResolvedValueOnce(authFixtures.userResponse),
+                    })),
                }));
                // @ts-ignore
                jest.spyOn(jwt, 'sign').mockReturnValueOnce(authFixtures.accessToken);

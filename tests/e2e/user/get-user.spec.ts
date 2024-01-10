@@ -16,7 +16,11 @@ describe('get user', () => {
           it('should throw an error', async () => {
                redisCache.get = jest.fn().mockResolvedValueOnce(null);
                // @ts-ignore
-               UserModel.findById = jest.fn(() => ({ populate: jest.fn().mockResolvedValueOnce(null) }));
+               UserModel.findById = jest.fn(() => ({
+                    populate: jest.fn(() => ({
+                         populate: jest.fn().mockResolvedValueOnce(null),
+                    })),
+               }));
 
                const { statusCode } = await api
                     .get('/api/v1/user')
@@ -46,7 +50,9 @@ describe('get user', () => {
                redisCache.get = jest.fn().mockResolvedValueOnce(null);
                // @ts-ignore
                UserModel.findById = jest.fn(() => ({
-                    populate: jest.fn().mockResolvedValueOnce(authFixtures.userResponse),
+                    populate: jest.fn(() => ({
+                         populate: jest.fn().mockResolvedValueOnce(authFixtures.userResponse),
+                    })),
                }));
                redisCache.set = jest.fn().mockResolvedValueOnce(undefined);
 

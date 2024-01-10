@@ -3,6 +3,7 @@ import DEFAULT_IMAGES from '../../constants/images.const';
 import { TokenTypes } from '../../schema/enums/auth.enums';
 import { RoleNames } from '../../schema/enums/role.enums';
 import roleFixtures from './role.fixture';
+import socialsFixture from './socials.fixture';
 
 const userId = String(new Types.ObjectId());
 const tokenId = String(new Types.ObjectId());
@@ -26,7 +27,7 @@ const authResponse = {
      email: request.email,
      verified: false,
      password: hashedPassword,
-     save: jest.fn().mockResolvedValueOnce(null),
+     save: jest.fn().mockResolvedValue(null),
 };
 
 const userResponse = {
@@ -37,6 +38,10 @@ const userResponse = {
      lastName: request.lastName,
      profilePicture: DEFAULT_IMAGES.profilePicture,
      roles: [roleFixtures.studentRole],
+     about: 'random description',
+     headline: 'random headline',
+     profilePictureId: 'random profile picture id',
+     socials: [socialsFixture.twitter, socialsFixture.linkedin],
 };
 
 const verifyUserTokenResponse = {
