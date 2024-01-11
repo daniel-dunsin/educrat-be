@@ -18,8 +18,13 @@ export async function getAllCategories() {
 }
 
 export async function getSingleCategory(id: string) {
-     const category = await CourseCategoryModel.findById(id);
-     if (!category) throw new ServiceException(404, 'Category does not exist');
+     let category = await redisCache.get<CourseCategory>(`course-categories:${id}`);
+
+     if (!category) {
+          category = await CourseCategoryModel.findById(id);
+          if (!category) throw new ServiceException(404, 'Category does not exist');
+          await redisCache.set(`course-categories:${id}`, category);
+     }
 
      return category;
 }
@@ -47,6 +52,7 @@ export async function updateCategory(data: UpdateCourseCategoryDTO) {
      );
 
      if (!category) throw new ServiceException(404, 'Category does not exist');
+     await redisCache.set(`course-categories:${data.id}`, category);
 
      return category;
 }
@@ -55,4 +61,5 @@ export async function deleteCategory(id: string) {
      const category = await CourseCategoryModel.findByIdAndDelete(id);
 
      if (!category) throw new ServiceException(404, 'Category does not exist');
+     await redisCache.delete(`course-categories:${id}`);
 }

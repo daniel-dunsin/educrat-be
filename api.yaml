@@ -318,7 +318,7 @@ paths:
       responses:
         500:
           $ref: "#/components/schemas/DefaultError"
-        200:
+        201:
           description: "Success Response"
           content:
             application/json:

@@ -17,7 +17,7 @@ export interface Course extends DefaultModel {
 }
 
 export interface CourseCategory extends DefaultModel {
-     name: CourseCategories;
+     name: CourseCategories | string;
      description: string;
      slug: string;
 }
