@@ -10,7 +10,6 @@ const CourseCategorySchema = createSchema<CourseCategory>({
           type: String,
           required: true,
           unique: true,
-          enum: Object.values(CourseCategories),
           trim: true,
      },
      slug: { type: String },

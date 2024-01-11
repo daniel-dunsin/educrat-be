@@ -6,15 +6,15 @@ import {
      updateProfilePictureController,
      updateSocialsController,
      updateUserController,
-} from '../controllers/user.controller';
-import validate from '../middlewares/validation.middleware';
+} from '../../controllers/user/user.controller';
+import validate from '../../middlewares/validation.middleware';
 import {
      becomeInstructorInput,
      updateProfilePictureInput,
      updateSocialsInput,
      updateUserInput,
-} from '../schema/validators/user.validator';
-import { authenticate } from '../middlewares/auth.middleware';
+} from '../../schema/validators/user.validator';
+import { authenticate } from '../../middlewares/auth.middleware';
 
 const userRoutes = Router();
 

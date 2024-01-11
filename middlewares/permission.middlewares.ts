@@ -5,7 +5,7 @@ import RoleModel from '../models/role.model';
 import redisCache from '../services/cache.service';
 import { Role } from '../schema/interfaces/roles.interface';
 
-export default async function permit(role: RoleNames) {
+export default function permit(role: RoleNames) {
      return async function (req: Request, res: Response, next: NextFunction) {
           try {
                const roleCache = await redisCache.get<Role>(`role:${role}:${req.userId}`);

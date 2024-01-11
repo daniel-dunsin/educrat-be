@@ -23,6 +23,8 @@ export default async function seedDatabase() {
                     for (const seeder of seeders) {
                          await seeder.default();
                     }
+
+                    console.log('⚡[seeders]: db seeded successfully');
                })
                .catch((error) => {
                     console.error('Unable to import seeders', error);

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import validate from '../middlewares/validation.middleware';
+import validate from '../../middlewares/validation.middleware';
 import {
      forgotPasswordInput,
      googleAuthInput,
@@ -8,7 +8,7 @@ import {
      signInInput,
      signUpInput,
      verifyAccountInput,
-} from '../schema/validators/auth.validator';
+} from '../../schema/validators/auth.validator';
 import {
      forgotPasswordController,
      googleSignInController,
@@ -17,7 +17,7 @@ import {
      signInController,
      signUpController,
      verifyAccountController,
-} from '../controllers/auth.controller';
+} from '../../controllers/auth/auth.controller';
 
 const authRoutes = Router();
 

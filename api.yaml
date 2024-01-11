@@ -298,6 +298,101 @@ paths:
           $ref: "#/components/schemas/DefaultError"
         200:
           $ref: "#/components/schemas/DefaultSuccess"
+  /course/category:
+    post:
+      tags:
+        - "course category"
+      security:
+        - bearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        500:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseCategory"
+    get:
+      description: "get all categories"
+      security: []
+      tags:
+        - "course category"
+      responses:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CourseCategory"
+  /course/category/{id}:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        schema:
+          type: string
+    put:
+      security:
+        - bearer: []
+      tags:
+        - "course category"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseCategory"
+    delete:
+      security:
+        - bearer: []
+      tags:
+        - "course category"
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+    get:
+      security:
+        - bearer: []
+      tags:
+        - "course category"
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseCategory"
+
 components:
   schemas:
     # Defaults
@@ -367,6 +462,17 @@ components:
           type: string
         _id:
           type: string
+    CourseCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        slug:
+          type: string
+        _id:
+          type: string
   securitySchemes:
     bearer:
       type: http
@@ -374,3 +480,4 @@ components:
 tags:
   - name: auth
   - name: user
+  - name: "course category"
