@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import asyncHandler from '../helpers/async.helper';
-import { ResetPasswordDTO, SignInDTO, SignUpDTO, VerifyAccountDTO } from '../schema/dto/auth.dto';
+import asyncHandler from '../../helpers/async.helper';
+import { ResetPasswordDTO, SignInDTO, SignUpDTO, VerifyAccountDTO } from '../../schema/dto/auth.dto';
 import {
      forgotPassword,
      requestVerificationLink,
@@ -9,7 +9,7 @@ import {
      signInWithGoogle,
      signUp,
      verifyAccount,
-} from '../services/auth.service';
+} from '../../services/auth.service';
 
 export const signUpController = asyncHandler(async function (req: Request<{}, {}, SignUpDTO>, res: Response) {
      await signUp(req.body);

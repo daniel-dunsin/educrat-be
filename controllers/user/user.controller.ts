@@ -1,13 +1,13 @@
 import { Request } from 'express';
-import asyncHandler from '../helpers/async.helper';
+import asyncHandler from '../../helpers/async.helper';
 import {
      becomeInstructor,
      getUser,
      updateProfilePicture,
      updateUser,
      updateUserSocials,
-} from '../services/user.service';
-import { BecomeInstructorDTO, UpdateSocialsDTO, UpdateUserDTO } from '../schema/dto/user.dto';
+} from '../../services/user.service';
+import { BecomeInstructorDTO, UpdateSocialsDTO, UpdateUserDTO } from '../../schema/dto/user.dto';
 
 export const getUserController = asyncHandler(async (req, res) => {
      const userId = req.userId as string;
