@@ -3,3 +3,7 @@ export enum ComplexityLevel {
      INTERMEDIATE = 'intermediate',
      EXPERT = 'expert',
 }
+
+export enum CourseCategories {
+     DEVELOPMENT = 'development',
+}

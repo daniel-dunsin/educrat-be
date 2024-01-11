@@ -1,4 +1,4 @@
-import { ComplexityLevel } from '../enums/course.enums';
+import { ComplexityLevel, CourseCategories } from '../enums/course.enums';
 import { Relations } from '../types/base.type';
 import { DefaultModel } from './index.interface';
 
@@ -17,6 +17,7 @@ export interface Course extends DefaultModel {
 }
 
 export interface CourseCategory extends DefaultModel {
-     name: string;
+     name: CourseCategories;
      description: string;
+     slug: string;
 }
