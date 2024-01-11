@@ -31,6 +31,7 @@ const UserSchema = createSchema<User>({
      profilePictureId: {
           type: String,
           default: '',
+          select: false,
      },
      biography: {
           type: String,

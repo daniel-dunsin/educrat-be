@@ -5,6 +5,7 @@ enum Collections {
      ROLE = 'role',
      SOCIALS = 'socials',
      COURSE = 'course',
+     COURSE_CATEGORY = 'course_category',
 }
 
 export default Collections;
