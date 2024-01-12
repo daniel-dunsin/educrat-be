@@ -1,4 +1,4 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose, { Collection, Types } from 'mongoose';
 import createSchema from '.';
 import Collections from '../schema/enums/collections.enums';
 import { Course } from '../schema/interfaces/course.interface';
@@ -11,12 +11,12 @@ const CourseSchema = createSchema<Course>({
           required: true,
           trim: true,
      },
-     slug: { type: String },
+     slug: { type: String, select: false },
      subtitle: { type: String, default: '' },
      description: { type: String, default: '' },
      language: { type: String },
      thumbnail: { type: String },
-     thumbnailId: { type: String },
+     thumbnailId: { type: String, select: false },
      category: {
           type: Types.ObjectId,
           ref: Collections.COURSE_CATEGORY,
@@ -33,6 +33,11 @@ const CourseSchema = createSchema<Course>({
      complexityLevel: {
           type: String,
           enum: Object.values(ComplexityLevel),
+     },
+     userId: {
+          type: Types.ObjectId,
+          ref: Collections.USER,
+          required: true,
      },
 });
 

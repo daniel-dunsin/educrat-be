@@ -392,7 +392,105 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CourseCategory"
-
+  /course:
+    post:
+      tags:
+        - course
+      security:
+        - bearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                category:
+                  type: string
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultSuccess"
+        201:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+  /course/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+    put:
+      description: "Update Course"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                subtitle:
+                  type: string
+                description:
+                  type: string
+                language:
+                  type: string
+                category:
+                  type: string
+                learningObjectives:
+                  type: array
+                  items:
+                    type: string
+                preRequisites:
+                  type: array
+                  items:
+                    type: string
+                complexityLevel:
+                  type: string
+                  example: "beginner/intermediate/expert"
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultSuccess"
+        201:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+  /course/{id}/thumbnail:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+    put:
+      description: "Update Course Thumbnail"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultSuccess"
+        201:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
 components:
   schemas:
     # Defaults
@@ -473,6 +571,36 @@ components:
           type: string
         _id:
           type: string
+    Course:
+      type: object
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        subtitle:
+          type: string
+        description:
+          type: string
+        language:
+          type: string
+        thumbnail:
+          type: string
+        learningObjectives:
+          type: array
+          items:
+            type: string
+        preRequisites:
+          type: array
+          items:
+            type: string
+        complexityLevel:
+          type: string
+          example: "beginner/intermdeiate/expert"
+        category:
+          $ref: "#/components/schemas/CourseCategory"
+        userId:
+          $ref: "#/components/schemas/User"
   securitySchemes:
     bearer:
       type: http
