@@ -491,6 +491,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Course"
+  /course/{id}/status:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+    put:
+      description: "Update Course Status"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "draft/published/rejected"
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultSuccess"
+        201:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+
 components:
   schemas:
     # Defaults
@@ -597,6 +626,9 @@ components:
         complexityLevel:
           type: string
           example: "beginner/intermdeiate/expert"
+        status:
+          type: string
+          example: "draft/published/rejected"
         category:
           $ref: "#/components/schemas/CourseCategory"
         userId:

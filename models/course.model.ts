@@ -2,7 +2,7 @@ import mongoose, { Collection, Types } from 'mongoose';
 import createSchema from '.';
 import Collections from '../schema/enums/collections.enums';
 import { Course } from '../schema/interfaces/course.interface';
-import { ComplexityLevel } from '../schema/enums/course.enums';
+import { ComplexityLevel, CourseStatus } from '../schema/enums/course.enums';
 import slugify from '../helpers/slugify.helper';
 
 const CourseSchema = createSchema<Course>({
@@ -34,6 +34,11 @@ const CourseSchema = createSchema<Course>({
           type: String,
           enum: Object.values(ComplexityLevel),
      },
+     status: {
+          type: String,
+          enum: Object.values(CourseStatus),
+          default: CourseStatus.DRAFT,
+     },
      userId: {
           type: Types.ObjectId,
           ref: Collections.USER,
@@ -48,7 +53,7 @@ CourseSchema.pre('save', function () {
      return;
 });
 
-CourseSchema.index({ title: 1, slug: 1 });
+CourseSchema.index({ title: 1, slug: 1, status: 1 });
 
 const CourseModel = mongoose.model(Collections.COURSE, CourseSchema);
 

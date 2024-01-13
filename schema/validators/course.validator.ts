@@ -1,4 +1,5 @@
 import { array, object, string } from 'yup';
+import { CourseStatus } from '../enums/course.enums';
 
 export const createCourseInput = object({
      body: object({
@@ -23,5 +24,14 @@ export const updateCourseInput = object({
 export const updateCourseThumbnailInput = object({
      body: object({
           image: string().required('image is required'),
+     }),
+});
+
+export const updateCourseStatusInput = object({
+     body: object({
+          status: string().equals(
+               Object.values(CourseStatus),
+               `Status must be either ${CourseStatus.DRAFT}, ${CourseStatus.PUBLISHED} or ${CourseStatus.REJECTED}`
+          ),
      }),
 });

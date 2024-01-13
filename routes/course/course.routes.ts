@@ -11,17 +11,24 @@ import {
 import {
      createCourseController,
      updateCourseController,
+     updateCourseStatusController,
      updateCourseThumbnailController,
 } from '../../controllers/course/course.controller';
 
 const courseRoutes = Router();
 
-courseRoutes.post('/', authenticate, permit(RoleNames.INSTRUCTOR), validate(createCourseInput), createCourseController);
+courseRoutes.post(
+     '/',
+     authenticate,
+     permit([RoleNames.INSTRUCTOR]),
+     validate(createCourseInput),
+     createCourseController
+);
 
 courseRoutes.put(
      '/:id',
      authenticate,
-     permit(RoleNames.INSTRUCTOR),
+     permit([RoleNames.INSTRUCTOR]),
      validate(updateCourseInput),
      updateCourseController
 );
@@ -29,9 +36,17 @@ courseRoutes.put(
 courseRoutes.put(
      '/:id/thumbnail',
      authenticate,
-     permit(RoleNames.INSTRUCTOR),
+     permit([RoleNames.INSTRUCTOR]),
      validate(updateCourseThumbnailInput),
      updateCourseThumbnailController
+);
+
+courseRoutes.put(
+     '/:id/status',
+     authenticate,
+     permit([RoleNames.INSTRUCTOR, RoleNames.ADMIN]),
+     validate(updateCourseInput),
+     updateCourseStatusController
 );
 
 export default courseRoutes;

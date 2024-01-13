@@ -19,17 +19,17 @@ courseCategoryRoutes.get('/:id', getSingleCategoryController);
 courseCategoryRoutes.post(
      '/',
      authenticate,
-     permit(RoleNames.ADMIN),
+     permit([RoleNames.ADMIN]),
      validate(createCategoryInput),
      createCategoryController
 );
 courseCategoryRoutes.put(
      '/:id',
      authenticate,
-     permit(RoleNames.ADMIN),
+     permit([RoleNames.ADMIN]),
      validate(updateCategoryInput),
      updateCategoryController
 );
-courseCategoryRoutes.delete('/:id', authenticate, permit(RoleNames.ADMIN), deleteCategoryController);
+courseCategoryRoutes.delete('/:id', authenticate, permit([RoleNames.ADMIN]), deleteCategoryController);
 
 export default courseCategoryRoutes;

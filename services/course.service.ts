@@ -1,5 +1,10 @@
 import CourseModel from '../models/course.model';
-import { CreateCourseDTO, UpdateCourseDTO, UpdateCourseThumbnailDTO } from '../schema/dto/course.dto';
+import {
+     CreateCourseDTO,
+     UpdateCourseDTO,
+     UpdateCourseStatusDTO,
+     UpdateCourseThumbnailDTO,
+} from '../schema/dto/course.dto';
 import _ from 'lodash';
 import ServiceException from '../schema/exception/service.exception';
 import { deleteResource, uploadResource } from '../config/upload.config';
@@ -41,16 +46,12 @@ export async function updateCourseThumbnail(data: UpdateCourseThumbnailDTO) {
      return await course.save();
 }
 
-export async function deleteCourse(id: string) {
-     const course = await CourseModel.findByIdAndDelete(id);
-
-     if (!course) throw new ServiceException(404, 'Course does not exist');
-
-     return course;
-}
-
-export async function getSingleCourse(id: string) {
-     const course = await CourseModel.findById(id).populate('category');
+export async function updateCourseStatus(data: UpdateCourseStatusDTO) {
+     const course = await CourseModel.findByIdAndUpdate(
+          data.id,
+          { status: data.status },
+          { new: true, runValidators: true }
+     );
 
      if (!course) throw new ServiceException(404, 'Course does not exist');
 
