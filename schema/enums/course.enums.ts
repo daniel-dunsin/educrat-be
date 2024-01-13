@@ -19,3 +19,9 @@ export enum CourseCategories {
      MUSIC = 'Music',
      TEACHING_AND_ACADEMICS = 'Teaching & Academics',
 }
+
+export enum CourseStatus {
+     DRAFT = 'draft',
+     PUBLISHED = 'published',
+     REJECTED = 'rejected',
+}
