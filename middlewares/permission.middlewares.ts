@@ -11,15 +11,19 @@ export default function permit(roles: RoleNames[]) {
                let roleExists = false;
 
                for (const role of roles) {
-                    const roleCache = await redisCache.get<Role>(`role:${role}:${req.userId}`);
-                    if (roleCache) roleExists = true;
+                    if (!roleExists) {
+                         const roleCache = await redisCache.get<Role>(`role:${role}:${req.userId}`);
+                         if (roleCache) roleExists = true;
+                    }
                }
 
                if (roleExists) {
                     return next();
                }
 
-               const dbRole = await RoleModel.findOne({ name: { $or: roles }, userId: req.userId });
+               const query = roles.map((role) => ({ name: role }));
+
+               const dbRole = await RoleModel.findOne({ $or: query, userId: req.userId });
                if (dbRole) {
                     await redisCache.set(`role:${dbRole.name}:${req.userId}`, dbRole);
                     return next();
