@@ -29,14 +29,14 @@ export async function updateCourse(data: UpdateCourseDTO) {
 }
 
 export async function updateCourseThumbnail(data: UpdateCourseThumbnailDTO) {
-     const course = await CourseModel.findById(data.id).select('thumbnailId');
+     const course = await CourseModel.findById(data.id).select('+thumbnailId');
 
      if (!course) throw new ServiceException(404, 'Course does not exist');
 
      const thumbnailId = course.thumbnailId;
      const thumbnail = course.thumbnail;
 
-     const { public_id, url } = await uploadResource(thumbnail);
+     const { public_id, url } = await uploadResource(data.image);
 
      if (thumbnailId) await deleteResource(thumbnailId);
 

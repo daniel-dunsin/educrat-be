@@ -1,5 +1,6 @@
 import { array, object, string } from 'yup';
-import { CourseStatus } from '../enums/course.enums';
+import { ComplexityLevel, CourseStatus } from '../enums/course.enums';
+import DEFAULT_MATCHERS from '../../constants/regex.const';
 
 export const createCourseInput = object({
      body: object({
@@ -17,13 +18,18 @@ export const updateCourseInput = object({
           category: string().notRequired(),
           learningObjectives: array(string()).notRequired(),
           preRequisites: array(string()).notRequired(),
-          complexityLevel: string().notRequired(),
+          complexityLevel: string()
+               .notRequired()
+               .equals(
+                    Object.values(ComplexityLevel),
+                    `Complexity level must be either ${ComplexityLevel.BEGINNER}, ${ComplexityLevel.INTERMEDIATE} or ${ComplexityLevel.EXPERT}`
+               ),
      }),
 });
 
 export const updateCourseThumbnailInput = object({
      body: object({
-          image: string().required('image is required'),
+          image: string().required('image is required').matches(DEFAULT_MATCHERS.base64, 'Upload base64 image'),
      }),
 });
 

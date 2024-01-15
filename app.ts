@@ -21,6 +21,7 @@ const doc_path = join(__dirname, secrets.nodeEnv === 'production' ? '../api.yaml
 const doc = yamljs.load(doc_path);
 app.use('/api/v1/doc', swagger.serve, swagger.setup(doc));
 app.use('/api/v1', routes);
+app.get('/', (req, res) => res.redirect('/api/v1/doc'));
 
 app.use(errorHandler);
 app.all('*', (req, res, next) => {

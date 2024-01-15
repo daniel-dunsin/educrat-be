@@ -18,15 +18,15 @@ export async function uploadResource(
           const data = await cloudinary.uploader.upload(file, { ...options, folder: 'educrat' });
 
           return { url: data.secure_url, public_id: data.public_id };
-     } catch (error) {
-          throw new ServiceException(400, `Unable to upload resource to cloud ${error}`);
+     } catch (error: any) {
+          throw new ServiceException(400, `Unable to upload resource to cloud ${error.message}`);
      }
 }
 
 export async function deleteResource(public_id: string, options: UploadApiOptions = {}): Promise<void> {
      try {
           await cloudinary.uploader.destroy(public_id, { ...options });
-     } catch (error) {
-          throw new ServiceException(400, `Unable to delete resource from cloud ${error}`);
+     } catch (error: any) {
+          throw new ServiceException(400, `Unable to delete resource from cloud ${error.message}`);
      }
 }
