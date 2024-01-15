@@ -1,0 +1,21 @@
+services:
+  server:
+    ports:
+      - 3001:3001
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: educrat-be
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./
+          action: sync+restart
+          target: /app

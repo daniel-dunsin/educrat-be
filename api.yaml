@@ -426,6 +426,10 @@ paths:
           type: string
         required: true
     put:
+      tags:
+        - course
+      security:
+        - bearer: []
       description: "Update Course"
       requestBody:
         required: true
@@ -472,6 +476,10 @@ paths:
           type: string
         required: true
     put:
+      tags:
+        - course
+      security:
+        - bearer: []
       description: "Update Course Thumbnail"
       requestBody:
         required: true
@@ -499,6 +507,10 @@ paths:
           type: string
         required: true
     put:
+      tags:
+        - course
+      security:
+        - bearer: []
       description: "Update Course Status"
       requestBody:
         required: true
