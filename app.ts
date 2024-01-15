@@ -11,7 +11,7 @@ import secrets from './constants/secrets.const';
 const app = express();
 
 const ONE_HOUR = 1000 * 60 * 60;
-const MAX_REQUESTS = 100;
+const MAX_REQUESTS = 300;
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(cors());
