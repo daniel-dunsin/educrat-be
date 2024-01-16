@@ -26,7 +26,6 @@ const UserSchema = createSchema<User>({
      },
      profilePicture: {
           type: String,
-          default: DEFAULT_IMAGES.profilePicture,
      },
      profilePictureId: {
           type: String,
