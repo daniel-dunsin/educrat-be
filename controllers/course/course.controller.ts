@@ -6,7 +6,14 @@ import {
      UpdateCourseStatusDTO,
      UpdateCourseThumbnailDTO,
 } from '../../schema/dto/course.dto';
-import { createCourse, updateCourse, updateCourseStatus, updateCourseThumbnail } from '../../services/course.service';
+import {
+     createCourse,
+     getCourses,
+     getSingleCourse,
+     updateCourse,
+     updateCourseStatus,
+     updateCourseThumbnail,
+} from '../../services/course.service';
 
 export const createCourseController = asyncHandler(async (req: Request<{}, {}, CreateCourseDTO>, res) => {
      const userId = req.userId as string;
@@ -42,3 +49,18 @@ export const updateCourseStatusController = asyncHandler(
           res.status(200).json(data);
      }
 );
+
+export const getSingleCourseController = asyncHandler(
+     async (req: Request<{ id: string }, {}, UpdateCourseStatusDTO>, res) => {
+          const courseId = req.params.id;
+
+          const data = await getSingleCourse(courseId);
+          res.status(200).json(data);
+     }
+);
+
+export const getCoursesController = asyncHandler(async (req, res) => {
+     const data = await getCourses();
+
+     res.status(200).json(data);
+});
