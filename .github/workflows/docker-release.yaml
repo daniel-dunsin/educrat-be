@@ -1,0 +1,16 @@
+name: "Docker release"
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checking out to branch
+
+      - run: docker build -t danieldunsin12/educrat-be:latest .
+      - run: echo ${{secrets.DOCKER_PASSWORD}} | docker login -u ${{secrets.DOCKER_USERNAME}}/educrat-be --password-stdin
+      - run: docker push danieldunsin12/educrat-be:latest
