@@ -16,9 +16,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node
+        name: Checking out to branch
+
+      - uses: actions/setup-node@v2
         name: Using Node.js v ${{matrix.node-version}}
         with:
           node-version: ${{matrix.node-version}}
+
       - run: npm install
       - run: npm run build

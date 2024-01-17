@@ -1,0 +1,25 @@
+name: "Test Server"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v2
+        name: Checking out to branch
+
+      - uses: actions/setup-node@v2
+        name: Using Node.js v ${{matrix.node-version}}
+        with:
+          node-version: ${{matrix.node-version}}
+
+      - run: npm install
+      - run: npm run test
