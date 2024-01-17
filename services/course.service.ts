@@ -10,6 +10,8 @@ import ServiceException from '../schema/exception/service.exception';
 import { deleteResource, uploadResource } from '../config/upload.config';
 import { CourseStatus } from '../schema/enums/course.enums';
 import { isCoursePublishable } from '../helpers/course.helper';
+import redisCache from './cache.service';
+import { Course } from '../schema/interfaces/course.interface';
 
 export async function createCourse(data: CreateCourseDTO) {
      return await CourseModel.create(data);
@@ -68,17 +70,28 @@ export async function updateCourseStatus(data: UpdateCourseStatusDTO) {
 }
 
 export async function getSingleCourse(id: string) {
-     const course = await CourseModel.findById(id)
-          .populate({ path: 'category', select: ['name', 'description', '_id'] })
-          .populate({ path: 'userId', select: '-profilePictureId' });
+     let course = await redisCache.get<Course>(`course:${id}`);
 
-     if (!course) throw new ServiceException(404, 'Course does not exist');
+     if (!course) {
+          course = await CourseModel.findById(id)
+               .populate({ path: 'category', select: ['name', 'description', '_id'] })
+               .populate({ path: 'userId', select: '-profilePictureId' });
 
-     return course;
+          if (!course) throw new ServiceException(404, 'Course does not exist');
+          await redisCache.set(`course:${id}`, course);
+
+          return course;
+     }
 }
 
 export async function getCourses() {
      return await CourseModel.find({})
+          .populate({ path: 'category', select: ['name', 'description', '_id'] })
+          .populate({ path: 'userId', select: '-profilePictureId' });
+}
+
+export async function getUserCourses(userId: string) {
+     return await CourseModel.find({ userId })
           .populate({ path: 'category', select: ['name', 'description', '_id'] })
           .populate({ path: 'userId', select: '-profilePictureId' });
 }

@@ -10,6 +10,7 @@ import {
      createCourse,
      getCourses,
      getSingleCourse,
+     getUserCourses,
      updateCourse,
      updateCourseStatus,
      updateCourseThumbnail,
@@ -61,6 +62,14 @@ export const getSingleCourseController = asyncHandler(
 
 export const getCoursesController = asyncHandler(async (req, res) => {
      const data = await getCourses();
+
+     res.status(200).json(data);
+});
+
+export const getUserCoursesController = asyncHandler(async (req, res) => {
+     const userId = <string>req.userId;
+
+     const data = await getUserCourses(userId);
 
      res.status(200).json(data);
 });

@@ -434,6 +434,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Course"
+  /course/user:
+    get:
+      tags:
+        - course
+      security:
+        - bearer: []
+      description: "Get User Courses"
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultSuccess"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
   /course/{id}:
     parameters:
       - in: path

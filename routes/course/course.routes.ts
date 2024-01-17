@@ -12,6 +12,7 @@ import {
      createCourseController,
      getCoursesController,
      getSingleCourseController,
+     getUserCoursesController,
      updateCourseController,
      updateCourseStatusController,
      updateCourseThumbnailController,
@@ -20,6 +21,9 @@ import {
 const courseRoutes = Router();
 
 courseRoutes.get('/', getCoursesController);
+
+courseRoutes.get('/user', authenticate, permit([RoleNames.INSTRUCTOR]), getUserCoursesController);
+
 courseRoutes.post(
      '/',
      authenticate,

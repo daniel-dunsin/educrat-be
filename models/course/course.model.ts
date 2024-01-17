@@ -46,6 +46,13 @@ const CourseSchema = createSchema<Course>({
      },
 });
 
+CourseSchema.virtual('modules', {
+     ref: Collections.MODULE,
+     localField: '_id',
+     foreignField: 'courseId',
+     justOne: false,
+});
+
 CourseSchema.pre('save', function () {
      if (this.isModified('title')) {
           this.slug = slugify(this.title);

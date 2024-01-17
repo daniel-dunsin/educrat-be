@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 import createSchema from '..';
 import Collections from '../../schema/enums/collections.enums';
 import { Lecture } from '../../schema/interfaces/lecture.interface';
+import LectureArticleModel from './lecture-article.model';
+import LectureResourceModel from './lecture-resource.model';
+import LectureVideoModel from './lecture-video.model';
 
 const LectureSchema = createSchema<Lecture>({
      title: { type: String, required: true },
@@ -21,6 +24,17 @@ LectureSchema.virtual('resources', {
      justOne: false,
      foreignField: 'lectureId',
      localField: '_id',
+});
+
+LectureSchema.pre(/delete/i, function (next) {
+     // @ts-ignore
+     LectureArticleModel.deleteMany({ lectureId: this._id }).exec();
+     // @ts-ignore
+     LectureResourceModel.deleteMany({ lectureId: this._id }).exec();
+     // @ts-ignore
+     LectureVideoModel.deleteMany({ lectureId: this._id }).exec();
+
+     next();
 });
 
 const LectureModel = mongoose.model(Collections.LECTURE, LectureSchema);
