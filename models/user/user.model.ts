@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import createSchema from '.';
-import DEFAULT_IMAGES from '../constants/images.const';
-import { User } from '../schema/interfaces/user.interface';
-import Collections from '../schema/enums/collections.enums';
-import DEFAULT_MATCHERS from '../constants/regex.const';
+import createSchema from '..';
+import DEFAULT_IMAGES from '../../constants/images.const';
+import { User } from '../../schema/interfaces/user.interface';
+import Collections from '../../schema/enums/collections.enums';
+import DEFAULT_MATCHERS from '../../constants/regex.const';
 
 const UserSchema = createSchema<User>({
      firstName: {

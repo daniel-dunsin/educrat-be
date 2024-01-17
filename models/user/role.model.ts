@@ -1,8 +1,8 @@
 import mongoose, { Types } from 'mongoose';
-import createSchema from '.';
-import { RoleNames } from '../schema/enums/role.enums';
-import { Role } from '../schema/interfaces/roles.interface';
-import Collections from '../schema/enums/collections.enums';
+import createSchema from '..';
+import { RoleNames } from '../../schema/enums/role.enums';
+import { Role } from '../../schema/interfaces/roles.interface';
+import Collections from '../../schema/enums/collections.enums';
 
 const RoleSchema = createSchema<Role>({
      name: { type: String, required: true, enum: Object.values(RoleNames) },

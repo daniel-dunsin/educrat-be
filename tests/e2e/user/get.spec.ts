@@ -3,7 +3,7 @@ import app from '../../../app';
 import jwt from 'jsonwebtoken';
 import authFixtures from '../../fixtures/auth.fixture';
 import redisCache from '../../../services/cache.service';
-import UserModel from '../../../models/user.model';
+import UserModel from '../../../models/user/user.model';
 
 const api = supertest(app);
 

@@ -1,13 +1,13 @@
 import supertest from 'supertest';
 import app from '../../../app';
 import authFixtures from '../../fixtures/auth.fixture';
-import AuthModel from '../../../models/auth.model';
+import AuthModel from '../../../models/user/auth.model';
 import bcrypt from 'bcryptjs';
-import UserModel from '../../../models/user.model';
+import UserModel from '../../../models/user/user.model';
 import uuid from 'uuid';
-import TokenModel from '../../../models/token.model';
+import TokenModel from '../../../models/user/token.model';
 import sendMail from '../../../services/email.service';
-import RoleModel from '../../../models/role.model';
+import RoleModel from '../../../models/user/role.model';
 import roleFixtures from '../../fixtures/role.fixture';
 
 const api = supertest(app);

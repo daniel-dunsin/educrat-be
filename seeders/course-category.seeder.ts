@@ -1,4 +1,4 @@
-import CourseCategoryModel from '../models/course-category.model';
+import CourseCategoryModel from '../models/course/course-category.model';
 import { CourseCategories } from '../schema/enums/course.enums';
 import { CourseCategory } from '../schema/interfaces/course.interface';
 import redisCache from '../services/cache.service';

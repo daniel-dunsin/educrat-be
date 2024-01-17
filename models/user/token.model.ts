@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import createSchema from '.';
-import { TokenTypes } from '../schema/enums/auth.enums';
-import { Token } from '../schema/interfaces/user.interface';
-import Collections from '../schema/enums/collections.enums';
-import DEFAULT_MATCHERS from '../constants/regex.const';
+import createSchema from '..';
+import { TokenTypes } from '../../schema/enums/auth.enums';
+import { Token } from '../../schema/interfaces/user.interface';
+import Collections from '../../schema/enums/collections.enums';
+import DEFAULT_MATCHERS from '../../constants/regex.const';
 
 const TokenSchema = createSchema<Token>({
      email: {

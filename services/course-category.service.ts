@@ -1,5 +1,5 @@
 import slugify from '../helpers/slugify.helper';
-import CourseCategoryModel from '../models/course-category.model';
+import CourseCategoryModel from '../models/course/course-category.model';
 import { CreateCourseCategoryDTO, UpdateCourseCategoryDTO } from '../schema/dto/course-category.dto';
 import ServiceException from '../schema/exception/service.exception';
 import { CourseCategory } from '../schema/interfaces/course.interface';

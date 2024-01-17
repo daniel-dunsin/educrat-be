@@ -4,7 +4,7 @@ import supertest from 'supertest';
 import app from '../../../app';
 import redisCache from '../../../services/cache.service';
 import roleFixtures from '../../fixtures/role.fixture';
-import CourseCategoryModel from '../../../models/course-category.model';
+import CourseCategoryModel from '../../../models/course/course-category.model';
 import courseCategoryFixtures from '../../fixtures/course-category.fixture';
 
 const api = supertest(app);

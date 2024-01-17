@@ -1,9 +1,9 @@
 import mongoose, { Collection, Types } from 'mongoose';
-import createSchema from '.';
-import Collections from '../schema/enums/collections.enums';
-import { Course } from '../schema/interfaces/course.interface';
-import { ComplexityLevel, CourseStatus } from '../schema/enums/course.enums';
-import slugify from '../helpers/slugify.helper';
+import createSchema from '..';
+import Collections from '../../schema/enums/collections.enums';
+import { Course } from '../../schema/interfaces/course.interface';
+import { ComplexityLevel, CourseStatus } from '../../schema/enums/course.enums';
+import slugify from '../../helpers/slugify.helper';
 
 const CourseSchema = createSchema<Course>({
      title: {

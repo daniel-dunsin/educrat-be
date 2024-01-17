@@ -5,7 +5,7 @@ import roleFixtures from '../../fixtures/role.fixture';
 import jwt from 'jsonwebtoken';
 import app from '../../../app';
 import courseFixtures from '../../fixtures/course.fixtures';
-import CourseModel from '../../../models/course.model';
+import CourseModel from '../../../models/course/course.model';
 
 const api = supertest(app);
 

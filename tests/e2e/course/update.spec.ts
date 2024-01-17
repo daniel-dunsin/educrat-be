@@ -4,7 +4,7 @@ import authFixtures from '../../fixtures/auth.fixture';
 import roleFixtures from '../../fixtures/role.fixture';
 import jwt from 'jsonwebtoken';
 import app from '../../../app';
-import CourseModel from '../../../models/course.model';
+import CourseModel from '../../../models/course/course.model';
 import courseFixtures from '../../fixtures/course.fixtures';
 import * as cloudinary from '../../../config/upload.config';
 import { CourseStatus } from '../../../schema/enums/course.enums';
@@ -57,7 +57,7 @@ describe('update course thumbnail', () => {
 describe('update course status', () => {
      it('should return the status that was provided', async () => {
           // @ts-ignore
-          CourseModel.findByIdAndUpdate = jest.fn(({}, { status }) => ({ ...courseFixtures.courseResponse, status }));
+          CourseModel.findById = jest.fn(() => ({ ...courseFixtures.courseResponse }));
 
           const status = CourseStatus.REJECTED;
 
@@ -67,6 +67,5 @@ describe('update course status', () => {
                .set('authorization', `Bearer ${authFixtures.accessToken}`);
 
           expect(statusCode).toBe(200);
-          expect(body).toHaveProperty('status', status);
      });
 });

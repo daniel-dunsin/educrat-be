@@ -1,4 +1,4 @@
-import RoleModel from '../models/role.model';
+import RoleModel from '../models/user/role.model';
 import { RoleNames } from '../schema/enums/role.enums';
 import { Role } from '../schema/interfaces/roles.interface';
 import { User } from '../schema/interfaces/user.interface';

@@ -2,8 +2,8 @@ import supertest from 'supertest';
 import app from '../../../app';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import TokenModel from '../../../models/token.model';
-import AuthModel from '../../../models/auth.model';
+import TokenModel from '../../../models/user/token.model';
+import AuthModel from '../../../models/user/auth.model';
 import sendMail from '../../../services/email.service';
 import authFixtures from '../../fixtures/auth.fixture';
 

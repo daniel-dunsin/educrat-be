@@ -1,8 +1,8 @@
 import mongoose, { Types } from 'mongoose';
-import createSchema from '.';
-import Collections from '../schema/enums/collections.enums';
-import { Socials } from '../schema/interfaces/socials.interface';
-import { SocialsTypes } from '../schema/enums/socials.enum';
+import createSchema from '..';
+import Collections from '../../schema/enums/collections.enums';
+import { Socials } from '../../schema/interfaces/socials.interface';
+import { SocialsTypes } from '../../schema/enums/socials.enum';
 
 const SocialSchema = createSchema<Socials>({
      userId: {

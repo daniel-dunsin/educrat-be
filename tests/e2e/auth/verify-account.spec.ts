@@ -1,8 +1,8 @@
 import supertest from 'supertest';
-import TokenModel from '../../../models/token.model';
+import TokenModel from '../../../models/user/token.model';
 import authFixtures from '../../fixtures/auth.fixture';
 import app from '../../../app';
-import AuthModel from '../../../models/auth.model';
+import AuthModel from '../../../models/user/auth.model';
 
 const api = supertest(app);
 

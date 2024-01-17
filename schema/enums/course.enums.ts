@@ -25,3 +25,8 @@ export enum CourseStatus {
      PUBLISHED = 'published',
      REJECTED = 'rejected',
 }
+
+export enum LectureResourceSource {
+     EXTERNAL = 'external',
+     DOWNLOADABLE = 'downloadable',
+}

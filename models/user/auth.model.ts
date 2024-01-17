@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import createSchema from '.';
-import { Auth } from '../schema/interfaces/user.interface';
-import Collections from '../schema/enums/collections.enums';
-import DEFAULT_MATCHERS from '../constants/regex.const';
+import createSchema from '..';
+import { Auth } from '../../schema/interfaces/user.interface';
+import Collections from '../../schema/enums/collections.enums';
+import DEFAULT_MATCHERS from '../../constants/regex.const';
 
 const AuthSchema = createSchema<Auth>({
      email: {

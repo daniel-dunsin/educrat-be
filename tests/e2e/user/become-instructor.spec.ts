@@ -1,14 +1,14 @@
 import supertest from 'supertest';
 import app from '../../../app';
-import UserModel from '../../../models/user.model';
+import UserModel from '../../../models/user/user.model';
 import authFixtures from '../../fixtures/auth.fixture';
 import socialsFixture from '../../fixtures/socials.fixture';
-import RoleModel from '../../../models/role.model';
+import RoleModel from '../../../models/user/role.model';
 import roleFixtures from '../../fixtures/role.fixture';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import redisCache from '../../../services/cache.service';
-import SocialsModel from '../../../models/socials.model';
+import SocialsModel from '../../../models/user/socials.model';
 import * as cloudinary from '../../../config/upload.config';
 
 const api = supertest(app);

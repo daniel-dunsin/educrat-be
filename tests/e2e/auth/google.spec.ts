@@ -2,11 +2,11 @@ import supertest from 'supertest';
 import app from '../../../app';
 import * as authServices from '../../../services/auth.service';
 import authFixtures from '../../fixtures/auth.fixture';
-import AuthModel from '../../../models/auth.model';
-import UserModel from '../../../models/user.model';
+import AuthModel from '../../../models/user/auth.model';
+import UserModel from '../../../models/user/user.model';
 import jwt from 'jsonwebtoken';
 import redisCache from '../../../services/cache.service';
-import RoleModel from '../../../models/role.model';
+import RoleModel from '../../../models/user/role.model';
 import roleFixtures from '../../fixtures/role.fixture';
 
 const api = supertest(app);

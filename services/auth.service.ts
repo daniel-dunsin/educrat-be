@@ -1,9 +1,9 @@
 import { v4 } from 'uuid';
 import { comparePassword, hashPassword } from '../helpers/auth.helper';
 import { renderEmailTemplate } from '../helpers/email.helper';
-import AuthModel from '../models/auth.model';
-import TokenModel from '../models/token.model';
-import UserModel from '../models/user.model';
+import AuthModel from '../models/user/auth.model';
+import TokenModel from '../models/user/token.model';
+import UserModel from '../models/user/user.model';
 import {
      CreateTokenDTO,
      ResetPasswordDTO,

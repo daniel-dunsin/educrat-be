@@ -1,4 +1,4 @@
-import CourseModel from '../models/course.model';
+import CourseModel from '../models/course/course.model';
 import {
      CreateCourseDTO,
      UpdateCourseDTO,
@@ -8,6 +8,8 @@ import {
 import _ from 'lodash';
 import ServiceException from '../schema/exception/service.exception';
 import { deleteResource, uploadResource } from '../config/upload.config';
+import { CourseStatus } from '../schema/enums/course.enums';
+import { isCoursePublishable } from '../helpers/course.helper';
 
 export async function createCourse(data: CreateCourseDTO) {
      return await CourseModel.create(data);
@@ -47,15 +49,22 @@ export async function updateCourseThumbnail(data: UpdateCourseThumbnailDTO) {
 }
 
 export async function updateCourseStatus(data: UpdateCourseStatusDTO) {
-     const course = await CourseModel.findByIdAndUpdate(
-          data.id,
-          { status: data.status },
-          { new: true, runValidators: true }
-     );
+     const course = await CourseModel.findById(data.id);
 
      if (!course) throw new ServiceException(404, 'Course does not exist');
 
-     return course;
+     if (data.status === CourseStatus.PUBLISHED) {
+          if (!isCoursePublishable(course)) {
+               throw new ServiceException(
+                    404,
+                    'Course must have title, description, category and thumbnail before it can be published'
+               );
+          }
+     }
+
+     course.status = data.status;
+
+     return await course.save();
 }
 
 export async function getSingleCourse(id: string) {

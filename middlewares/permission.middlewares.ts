@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { RoleNames } from '../schema/enums/role.enums';
 import ServiceException from '../schema/exception/service.exception';
-import RoleModel from '../models/role.model';
+import RoleModel from '../models/user/role.model';
 import redisCache from '../services/cache.service';
 import { Role } from '../schema/interfaces/roles.interface';
 

@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import CourseModel from '../../../models/course.model';
+import CourseModel from '../../../models/course/course.model';
 import courseFixtures from '../../fixtures/course.fixtures';
 import app from '../../../app';
 
