@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import app from '../../../app';
 import moduleFixtures from '../../fixtures/module.fixture';
 import courseFixtures from '../../fixtures/course.fixtures';
-import ModuleModel from '../../../models/course/module.model';
+import ModuleModel from '../../../models/module/module.model';
 
 // for permissions and authorization
 beforeEach(() => {

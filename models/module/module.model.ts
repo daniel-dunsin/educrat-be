@@ -2,7 +2,7 @@ import mongoose, { Types } from 'mongoose';
 import createSchema from '..';
 import { Module } from '../../schema/interfaces/module.interface';
 import Collections from '../../schema/enums/collections.enums';
-import LectureModel from './lecture.model';
+import LectureModel from '../lecture/lecture.model';
 
 const ModuleSchema = createSchema<Module>({
      title: { type: String, required: true },
@@ -17,7 +17,7 @@ ModuleSchema.virtual('lectures', {
      localField: '_id',
 });
 
-ModuleSchema.pre(/delete/, function (next) {
+ModuleSchema.pre(/delete/i, function (next) {
      // @ts-ignore
      LectureModel.deleteMany({ moduleId: this._id }).exec();
      next();

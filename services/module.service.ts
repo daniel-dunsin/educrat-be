@@ -1,4 +1,4 @@
-import ModuleModel from '../models/course/module.model';
+import ModuleModel from '../models/module/module.model';
 import { CreateModuleDTO, UpdateModuleDTO } from '../schema/dto/module.dto';
 import ServiceException from '../schema/exception/service.exception';
 import { getSingleCourse } from './course.service';

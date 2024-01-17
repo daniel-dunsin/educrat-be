@@ -5,7 +5,7 @@ import roleFixtures from '../../fixtures/role.fixture';
 import jwt from 'jsonwebtoken';
 import app from '../../../app';
 import moduleFixtures from '../../fixtures/module.fixture';
-import ModuleModel from '../../../models/course/module.model';
+import ModuleModel from '../../../models/module/module.model';
 
 // for permissions and authorization
 beforeEach(() => {
