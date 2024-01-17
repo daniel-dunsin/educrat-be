@@ -683,6 +683,100 @@ paths:
         200:
           $ref: "#/components/schemas/DefaultSuccess"
 
+  # ==================== LECTURES =========================
+  /lecture/module/{id}:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: "The module Id"
+        schema:
+          type: string
+    post:
+      description: "Create a lecture"
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        201:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecture"
+    get:
+      tags:
+        - lectures
+      security: []
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Lecture"
+
+  /lecture/{id}:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: "The lecture Id"
+        schema:
+          type: string
+    put:
+      description: "Update a lecture"
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecture"
+    delete:
+      description: "delete a lecture"
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
 components:
   schemas:
     # Defaults
@@ -811,7 +905,22 @@ components:
           type: string
         courseId:
           type: string
-        # lectures
+        lectures:
+          type: array
+          items:
+            $ref: "#/components/schemas/Lecture"
+
+    Lecture:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        contentType:
+          type: string
+          example: "lecture_video/lecture_article"
+        # content
 
   securitySchemes:
     bearer:
@@ -823,3 +932,4 @@ tags:
   - name: "course category"
   - name: course
   - name: modules
+  - name: lectures
