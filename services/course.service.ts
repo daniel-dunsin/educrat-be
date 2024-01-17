@@ -57,3 +57,11 @@ export async function updateCourseStatus(data: UpdateCourseStatusDTO) {
 
      return course;
 }
+
+export async function getSingleCourse(id: string) {
+     const course = await CourseModel.findById(id).populate({ path: 'category' }).populate({ path: 'userId' });
+
+     if (!course) throw new ServiceException(404, 'Course does not exist');
+
+     return course;
+}

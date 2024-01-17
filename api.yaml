@@ -425,6 +425,20 @@ paths:
         schema:
           type: string
         required: true
+    get:
+      tags:
+        - course
+      security: []
+      description: "Get Single Course"
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultSuccess"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
     put:
       tags:
         - course
@@ -462,7 +476,7 @@ paths:
       responses:
         400:
           $ref: "#/components/schemas/DefaultSuccess"
-        201:
+        200:
           description: "Success Response"
           content:
             application/json:
