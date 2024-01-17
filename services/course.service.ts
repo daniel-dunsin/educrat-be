@@ -82,6 +82,8 @@ export async function getSingleCourse(id: string) {
 
           return course;
      }
+
+     return course;
 }
 
 export async function getCourses() {
