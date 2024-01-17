@@ -393,6 +393,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/CourseCategory"
   /course:
+    get:
+      tags:
+        - course
+      security: []
+      description: "Get All Courses"
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultSuccess"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
     post:
       tags:
         - course

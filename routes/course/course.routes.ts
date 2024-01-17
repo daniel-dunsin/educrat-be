@@ -10,6 +10,8 @@ import {
 } from '../../schema/validators/course.validator';
 import {
      createCourseController,
+     getCoursesController,
+     getSingleCourseController,
      updateCourseController,
      updateCourseStatusController,
      updateCourseThumbnailController,
@@ -17,6 +19,7 @@ import {
 
 const courseRoutes = Router();
 
+courseRoutes.get('/', getCoursesController);
 courseRoutes.post(
      '/',
      authenticate,
@@ -40,6 +43,8 @@ courseRoutes.put(
      validate(updateCourseThumbnailInput),
      updateCourseThumbnailController
 );
+
+courseRoutes.get('/:id', getSingleCourseController);
 
 courseRoutes.put(
      '/:id/status',

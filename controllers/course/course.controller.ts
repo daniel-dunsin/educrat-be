@@ -8,6 +8,7 @@ import {
 } from '../../schema/dto/course.dto';
 import {
      createCourse,
+     getCourses,
      getSingleCourse,
      updateCourse,
      updateCourseStatus,
@@ -57,3 +58,9 @@ export const getSingleCourseController = asyncHandler(
           res.status(200).json(data);
      }
 );
+
+export const getCoursesController = asyncHandler(async (req, res) => {
+     const data = await getCourses();
+
+     res.status(200).json(data);
+});

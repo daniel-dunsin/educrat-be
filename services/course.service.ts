@@ -59,9 +59,17 @@ export async function updateCourseStatus(data: UpdateCourseStatusDTO) {
 }
 
 export async function getSingleCourse(id: string) {
-     const course = await CourseModel.findById(id).populate({ path: 'category' }).populate({ path: 'userId' });
+     const course = await CourseModel.findById(id)
+          .populate({ path: 'category', select: ['name', 'description', '_id'] })
+          .populate({ path: 'userId', select: '-profilePictureId' });
 
      if (!course) throw new ServiceException(404, 'Course does not exist');
 
      return course;
+}
+
+export async function getCourses() {
+     return await CourseModel.find({})
+          .populate({ path: 'category', select: ['name', 'description', '_id'] })
+          .populate({ path: 'userId', select: '-profilePictureId' });
 }
