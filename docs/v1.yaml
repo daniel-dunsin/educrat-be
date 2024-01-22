@@ -731,7 +731,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Lecture"
-
   /lecture/{id}:
     parameters:
       - in: path
@@ -772,6 +771,115 @@ paths:
         - bearer: []
       tags:
         - lectures
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+  /lecture/resource/lecture/{id}/downloadable:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: "The lecture Id"
+        schema:
+          type: string
+    post:
+      tags:
+        - lectures
+      security:
+        - bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                type:
+                  type: string
+                  example: "The file type"
+                file:
+                  type: string
+                  example: "The file base64"
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        201:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LectureResource"
+  /lecture/resource/lecture/{id}/external:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: "The lecture Id"
+        schema:
+          type: string
+    post:
+      tags:
+        - lectures
+      security:
+        - bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                url:
+                  type: string
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        201:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LectureResource"
+  /lecture/resource/lecture/{id}:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: "The lecture Id"
+        schema:
+          type: string
+    get:
+      tags:
+        - lectures
+      security: []
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        201:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LectureResource"
+  /lecture/resource/{id}:
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: "The resource Id"
+        schema:
+          type: string
+    delete:
+      tags:
+        - lectures
+      security:
+        - bearer: []
       responses:
         400:
           $ref: "#/components/schemas/DefaultError"
@@ -920,7 +1028,24 @@ components:
         contentType:
           type: string
           example: "lecture_video/lecture_article"
-        # content
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/LectureResource"
+    LectureResource:
+      type: object
+      properties:
+        title:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+        source:
+          type: string
+          example: "downloadable/external"
+        lectureId:
+          type: string
 
   securitySchemes:
     bearer:
