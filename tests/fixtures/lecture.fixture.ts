@@ -11,7 +11,7 @@ const lectureRequest = {
 
 const downloadableResourceRequest = {
      title: 'testtitle',
-     file: 'application/pdf;base64,JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpCmVuZG9iago4IDAgb2JqCjw8Ci9GaWx0ZXIgL0ZsYXRlRGVjb2RlCi9MZW5ndGggNzMyNDAKL0xlbmd0aDEgMzQ3MzkyCi9UeXBlIC9TdHJlYW0KPj4Kc3RyZWFtCnic7J0JYFTVvfD',
+     file: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAk8AAAKZCAYAAAChoM9cAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUABSHTSURBVHgB7L1nkixJth523CMys7S6ouXMdAN8BGlGMw5WgOEKCK4AjyvA4woGWAHAFTxgBQBWgIER/=`,
      type: 'application/pdf',
 };
 
@@ -26,6 +26,7 @@ const resourceResponse = {
      source: 'downloadble/external',
      lectureId,
      type: 'testtype',
+     deleteOne: jest.fn().mockResolvedValueOnce(null),
 };
 
 const lectureResponse = {
