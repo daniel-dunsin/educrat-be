@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import createSchema from '..';
 import Collections from '../../schema/enums/collections.enums';
 import { Lecture } from '../../schema/interfaces/lecture.interface';
@@ -9,7 +9,16 @@ import LectureVideoModel from './lecture-video.model';
 const LectureSchema = createSchema<Lecture>({
      title: { type: String, required: true },
      description: { type: String },
-     contentType: { type: String, enum: [Collections.LECTURE_ARTICLE, Collections.LECTURE_VIDEO], default: null },
+     contentType: {
+          type: String,
+          enum: [Collections.LECTURE_ARTICLE, Collections.LECTURE_VIDEO],
+          default: null,
+     },
+     moduleId: {
+          type: Types.ObjectId,
+          ref: Collections.MODULE,
+          required: true,
+     },
 });
 
 LectureSchema.virtual('content', {
@@ -26,15 +35,14 @@ LectureSchema.virtual('resources', {
      localField: '_id',
 });
 
-LectureSchema.pre(/delete/i, function (next) {
+LectureSchema.post('findOneAndDelete', async function (next) {
      // @ts-ignore
-     LectureArticleModel.deleteMany({ lectureId: this._id }).exec();
-     // @ts-ignore
-     LectureResourceModel.deleteMany({ lectureId: this._id }).exec();
-     // @ts-ignore
-     LectureVideoModel.deleteMany({ lectureId: this._id }).exec();
+     const id = this._conditions._id as string;
+     await LectureArticleModel.deleteMany({ lectureId: id }).exec();
 
-     next();
+     await LectureResourceModel.deleteMany({ lectureId: id }).exec();
+
+     await LectureVideoModel.deleteMany({ lectureId: id }).exec();
 });
 
 const LectureModel = mongoose.model(Collections.LECTURE, LectureSchema);

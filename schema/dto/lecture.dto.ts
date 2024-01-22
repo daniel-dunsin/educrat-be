@@ -8,3 +8,16 @@ export interface UpdateLectureDTO {
      description: string;
      id: string;
 }
+
+export interface CreateDownloadableLectureResourceDTO {
+     title: string;
+     file: string;
+     lectureId: string;
+     type: string;
+}
+
+export interface CreateExternalResourceDTO {
+     title: string;
+     url: string;
+     lectureId: string;
+}

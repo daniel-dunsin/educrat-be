@@ -19,7 +19,8 @@ export async function uploadResource(
 
           return { url: data.secure_url, public_id: data.public_id };
      } catch (error: any) {
-          throw new ServiceException(400, `Unable to upload resource to cloud ${error.message}`);
+          console.log(error);
+          throw new ServiceException(400, `Unable to upload resource to cloud ${error.message ?? error}`);
      }
 }
 
@@ -27,6 +28,7 @@ export async function deleteResource(public_id: string, options: UploadApiOption
      try {
           await cloudinary.uploader.destroy(public_id, { ...options });
      } catch (error: any) {
-          throw new ServiceException(400, `Unable to delete resource from cloud ${error.message}`);
+          console.log(error);
+          throw new ServiceException(400, `Unable to delete resource from cloud ${error.message ?? error}`);
      }
 }

@@ -27,7 +27,7 @@ export async function updateModule(data: UpdateModuleDTO) {
 }
 
 export async function deleteModule(moduleId: string) {
-     const module = await ModuleModel.findByIdAndDelete(moduleId);
+     const module = await ModuleModel.findOneAndDelete({ _id: moduleId });
 
      if (!module) throw new ServiceException(404, 'Module does not exist');
 

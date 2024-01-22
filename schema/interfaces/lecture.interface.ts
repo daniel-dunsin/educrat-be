@@ -32,6 +32,7 @@ export interface LectureResource extends DefaultModel {
      source: LectureResourceSource;
      title: string;
      url: string;
+     publicId: string;
      type: string;
      lectureId: Relations<Lecture>;
 }

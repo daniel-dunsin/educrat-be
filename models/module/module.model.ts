@@ -17,10 +17,11 @@ ModuleSchema.virtual('lectures', {
      localField: '_id',
 });
 
-ModuleSchema.pre(/delete/i, function (next) {
+ModuleSchema.post('findOneAndDelete', async function (next) {
      // @ts-ignore
-     LectureModel.deleteMany({ moduleId: this._id }).exec();
-     next();
+     const id = this._conditions._id as string;
+
+     await LectureModel.deleteMany({ moduleId: id }).exec();
 });
 
 const ModuleModel = mongoose.model(Collections.MODULE, ModuleSchema);
