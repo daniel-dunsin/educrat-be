@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import ServiceException from '../schema/exception/service.exception';
 
 export default function errorHandler(error: Error | ServiceException, req: Request, res: Response, next: NextFunction) {
+     console.log(error);
      if (error instanceof ServiceException) {
           res.status(error?.statusCode).send({ error: error.message || error });
      } else {
