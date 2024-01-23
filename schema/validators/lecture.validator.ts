@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 import DEFAULT_MATCHERS from '../../constants/regex.const';
 
 export const createLectureInput = object({
@@ -41,5 +41,28 @@ export const createExternalResourceInput = object({
      body: object({
           title: string().required('title is required'),
           url: string().required('url is required'),
+     }),
+});
+
+export const createLectureVideoInput = object({
+     params: object({
+          id: string().required('lecture id is required'),
+     }),
+
+     body: object({
+          title: string().required('title is required'),
+          file: string().required('file is required').matches(DEFAULT_MATCHERS.base64, 'Upload a base64 video as file'),
+          duration: number().required('video duration is required'),
+     }),
+});
+
+export const createLectureArticleInput = object({
+     params: object({
+          id: string().required('lecture id is required'),
+     }),
+
+     body: object({
+          title: string().required('title is required'),
+          body: string().required('body is required'),
      }),
 });

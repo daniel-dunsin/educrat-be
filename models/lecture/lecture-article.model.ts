@@ -6,7 +6,7 @@ import Collections from '../../schema/enums/collections.enums';
 const LectureArticleSchema = createSchema<LectureArticle>({
      title: { type: String, required: true },
      body: { type: String, required: true },
-     viewSpan: { type: Number, required: true },
+     duration: { type: Number, required: true },
      lectureId: { type: Types.ObjectId, ref: Collections.LECTURE },
 });
 

@@ -5,3 +5,15 @@ export function isCoursePublishable(course: Course): boolean {
 
      return requiredFields.every((field) => course[field]);
 }
+
+export function getArticleDuration(body: string): number {
+     const AVERAGE_WORDS_PER_MINUTE = 200;
+
+     let words = body.split(/[,\s]+/);
+
+     words = words.filter((word) => word.length > 0);
+
+     const minutes = words.length / AVERAGE_WORDS_PER_MINUTE;
+
+     return minutes * 60;
+}

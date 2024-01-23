@@ -17,14 +17,15 @@ export interface Lecture extends DefaultModel {
 export interface LectureArticle extends DefaultModel {
      title: string;
      body: string;
-     viewSpan: number;
+     duration: number;
      lectureId: Relations<Lecture>;
 }
 
 export interface LectureVideo extends DefaultModel {
      title: string;
-     viewSpan: number;
+     duration: number;
      url: string;
+     publicId: string;
      lectureId: Relations<Lecture>;
 }
 
