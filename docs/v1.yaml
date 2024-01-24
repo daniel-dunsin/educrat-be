@@ -682,7 +682,21 @@ paths:
           $ref: "#/components/schemas/DefaultError"
         200:
           $ref: "#/components/schemas/DefaultSuccess"
-
+    get:
+      tags:
+        - modules
+      security:
+        - bearer: []
+      responses:
+        404:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseModule"
+    
   # ==================== LECTURES =========================
   /lecture/module/{id}:
     parameters:
@@ -885,6 +899,132 @@ paths:
           $ref: "#/components/schemas/DefaultError"
         200:
           $ref: "#/components/schemas/DefaultSuccess"
+  /lecture/content/lecture/{id}/video:
+    parameters:
+      - in: path
+        required: true
+        schema:
+          type: string
+        name: id
+        description: the lecture id
+    post:
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                file:
+                  type: string
+                  example: "the video base64"
+                duration:
+                  type: number
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LectureVideo"
+  /lecture/content/lecture/{id}/article:
+    parameters:
+      - in: path
+        required: true
+        schema:
+          type: string
+        name: id
+        description: the lecture id
+    post:
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LectureArticle"
+  /lecture/content/article/{id}:
+    parameters:
+      - in: path
+        required: true
+        schema:
+          type: string
+        name: id
+        description: the article id
+    delete:
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DefaultSuccess"
+  /lecture/content/video/{id}:
+    parameters:
+      - in: path
+        required: true
+        schema:
+          type: string
+        name: id
+        description: the video id
+    delete:
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          $ref: "#/components/schemas/DefaultSuccess"
+  /lecture/content/lecture/{id}:
+    parameters:
+      - in: path
+        required: true
+        schema:
+          type: string
+        name: id
+        description: the lecture id
+      get:
+        tags:
+          - lectures
+        responses:
+          400:
+            $ref: "#/components/schemas/DefaultError"
+          200:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/LectureVideo"
+
 components:
   schemas:
     # Defaults
@@ -1032,6 +1172,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LectureResource"
+        content:
+          $ref: "#/components/schemas/LectureVideo"
+
     LectureResource:
       type: object
       properties:
@@ -1046,6 +1189,24 @@ components:
           example: "downloadable/external"
         lectureId:
           type: string
+    LectureVideo:
+      type: object
+      properties:
+        url:
+          type: string
+        title:
+          type: string
+        duration:
+          type: number
+    LectureArticle:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        duration:
+          type: number
 
   securitySchemes:
     bearer:

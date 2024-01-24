@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import asyncHandler from '../../helpers/async.helper';
 import { CreateModuleDTO, UpdateModuleDTO } from '../../schema/dto/module.dto';
-import { createModule, deleteModule, getModules, updateModule } from '../../services/module.service';
+import { createModule, deleteModule, getModules, getSingleModule, updateModule } from '../../services/module.service';
 
 export const createModuleController = asyncHandler(async (req: Request<{ id: string }, {}, CreateModuleDTO>, res) => {
      const courseId = req.params.id;
@@ -29,4 +29,12 @@ export const deleteModuleController = asyncHandler(async (req: Request<{ id: str
      await deleteModule(moduleId);
 
      res.status(200).json({ message: 'module deleted' });
+});
+
+export const getSingleModuleController = asyncHandler(async (req: Request<{ id: string }>, res) => {
+     const moduleId = req.params.id;
+
+     const data = await getSingleModule(moduleId);
+
+     res.status(200).json(data);
 });

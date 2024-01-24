@@ -5,6 +5,7 @@ import {
      createModuleController,
      deleteModuleController,
      getModulesController,
+     getSingleModuleController,
      updateModuleController,
 } from '../../controllers/module/module.controller';
 
@@ -14,5 +15,6 @@ moduleRoutes.post('/course/:id', validate(createModuleInput), createModuleContro
 moduleRoutes.get('/course/:id', getModulesController);
 moduleRoutes.put('/:id', validate(updateModuleInput), updateModuleController);
 moduleRoutes.delete('/:id', deleteModuleController);
+moduleRoutes.get('/:id', getSingleModuleController);
 
 export default moduleRoutes;

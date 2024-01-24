@@ -35,5 +35,19 @@ export async function deleteModule(moduleId: string) {
 }
 
 export async function getModules(courseId: string) {
-     return await ModuleModel.find({ courseId });
+     return await ModuleModel.find({ courseId }).populate({
+          path: 'lectures',
+          populate: [{ path: 'content' }, { path: 'resources' }],
+     });
+}
+
+export async function getSingleModule(moduleId: string) {
+     const module = await ModuleModel.findById(moduleId).populate({
+          path: 'lectures',
+          populate: [{ path: 'content' }, { path: 'resources' }],
+     });
+
+     if (!module) throw new ServiceException(404, 'Module does non exist');
+
+     return module;
 }
