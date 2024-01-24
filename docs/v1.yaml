@@ -696,7 +696,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CourseModule"
-    
+
   # ==================== LECTURES =========================
   /lecture/module/{id}:
     parameters:
@@ -1013,17 +1013,17 @@ paths:
           type: string
         name: id
         description: the lecture id
-      get:
-        tags:
-          - lectures
-        responses:
-          400:
-            $ref: "#/components/schemas/DefaultError"
-          200:
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/LectureVideo"
+    get:
+      tags:
+        - lectures
+      responses:
+        400:
+          $ref: "#/components/schemas/DefaultError"
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LectureVideo"
 
 components:
   schemas:
