@@ -11,6 +11,8 @@ enum Collections {
      LECTURE_VIDEO = 'lecture_video',
      LECTURE_ARTICLE = 'lecture_article',
      LECTURE_RESOURCE = 'lecture_resource',
+     ENROLLMENT = 'enrollment',
+     COMPLETED_LECTURES = 'completed_lectures',
 }
 
 export default Collections;

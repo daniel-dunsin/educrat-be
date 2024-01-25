@@ -77,7 +77,19 @@ export async function getSingleCourse(id: string) {
      if (!course) {
           course = await CourseModel.findById(id)
                .populate({ path: 'category', select: ['name', 'description', '_id'] })
-               .populate({ path: 'userId', select: '-profilePictureId' });
+               .populate({ path: 'userId', select: '-profilePictureId' })
+               .populate({
+                    path: 'modules',
+                    select: '-courseId',
+                    populate: {
+                         path: 'lectures',
+                         select: '-moduleId',
+                         populate: [
+                              { path: 'content', select: '-lectureId' },
+                              { path: 'resources', select: '-lectureId' },
+                         ],
+                    },
+               });
 
           if (!course) throw new ServiceException(404, 'Course does not exist');
           await redisCache.set(`course:${id}`, course);
