@@ -29,7 +29,7 @@ export async function updateCourse(data: UpdateCourseDTO) {
 
      if (!course) throw new ServiceException(404, 'Course does not exist');
 
-     await redisCache.set(`course:${data.id}`, course);
+     await redisCache.delete(`course:${data.id}`);
 
      return course;
 }

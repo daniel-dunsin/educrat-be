@@ -14,6 +14,7 @@ beforeEach(() => {
      jwt.verify = jest.fn().mockResolvedValueOnce({ userId: authFixtures.userId });
      // for permission middleware
      redisCache.get = jest.fn().mockResolvedValueOnce(roleFixtures.instructorRole);
+     redisCache.delete = jest.fn().mockResolvedValueOnce(null);
 });
 
 const api = supertest(app);

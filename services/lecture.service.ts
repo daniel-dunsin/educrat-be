@@ -140,8 +140,9 @@ export async function deleteLectureArticle(articleId: string) {
 }
 
 export async function deleteLectureVideo(videoId: string) {
-     const video = await LectureVideoModel.findOneAndDelete({ _id: videoId });
+     const video = await LectureVideoModel.findOneAndDelete({ _id: videoId }).select('publicId');
      if (!video) throw new ServiceException(404, 'Lecture Video does not exist');
+     await deleteResource(video.publicId);
 
      await LectureModel.findByIdAndUpdate(video.lectureId, { contentType: null }, { new: true, runValidators: true });
 }

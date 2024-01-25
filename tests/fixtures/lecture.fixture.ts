@@ -29,10 +29,33 @@ const resourceResponse = {
      deleteOne: jest.fn().mockResolvedValueOnce(null),
 };
 
+const articleRequest = {
+     title: 'testtitle',
+     body: 'testbody',
+     duration: 10000,
+};
+
+const videoRequest = {
+     title: 'testtitle',
+     file: ' file: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAk8AAAKZCAYAAAChoM9cAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUABSHTSURBVHgB7L1nkixJth523CMys7S6ouXMdAN8BGlGMw5WgOEKCK4AjyvA4woGWAHAFTxgBQBWgIER/=`',
+     duration: 10000,
+};
+
+const videoResponse = {
+     ...videoRequest,
+     lectureId: 'testLectureId',
+};
+
+const articleResponse = {
+     ...articleRequest,
+     lectureId: 'testLectureId',
+};
+
 const lectureResponse = {
      ...lectureRequest,
      contentType: 'testContentType',
      resources: [resourceResponse],
+     content: articleResponse,
 };
 
 const lectureFixtures = {
@@ -44,6 +67,10 @@ const lectureFixtures = {
      downloadableResourceRequest,
      lectureRequest,
      moduleId,
+     articleRequest,
+     articleResponse,
+     videoRequest,
+     videoResponse,
 };
 
 export default lectureFixtures;
