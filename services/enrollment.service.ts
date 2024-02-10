@@ -1,3 +1,4 @@
+import { getEnrollmentProgress } from '../helpers/course.helper';
 import CompletedLectureModel from '../models/enrollment/completed-lectures.model';
 import EnrollmentModel from '../models/enrollment/enrollment.model';
 import { EnrollmentDTO, CompletedLectureDTO } from '../schema/dto/enrollment.dto';
@@ -29,19 +30,25 @@ export async function getSingleEnrollment(enrollmentId: string) {
                {
                     path: 'completedLectures',
                },
-               {
-                    path: 'progress',
-               },
           ])
           .select('-userId');
+
+     if (!enrollment) throw new ServiceException(404, 'Enrollment does not exist');
+
+     enrollment.progress = await getEnrollmentProgress(enrollment?.id, enrollment?.courseId as string);
 
      return enrollment;
 }
 
 export async function getUserEnrollments(userId: string) {
-     const enrollments = await EnrollmentModel.find({ userId })
-          .populate([{ path: 'courseId' }, { path: 'progress' }])
-          .select('+progress');
+     let enrollments = await EnrollmentModel.find({ userId }).populate([{ path: 'courseId' }, { path: 'progress' }]);
+
+     enrollments = await Promise.all(
+          enrollments.map(async (enrollment) => {
+               enrollment.progress = await getEnrollmentProgress(enrollment?.id, enrollment?.courseId as string);
+               return enrollment;
+          })
+     );
 
      return enrollments;
 }

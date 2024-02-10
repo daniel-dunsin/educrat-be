@@ -20,3 +20,13 @@ export function getArticleDuration(body: string): number {
 
      return minutes * 60;
 }
+
+export async function getEnrollmentProgress(courseId: string, enrollmentId: string): Promise<number> {
+     return await ModuleModel.find({ courseId }).then(async (modules) => {
+          const modulesId = modules.map((module) => ({ moduleId: module._id }));
+          const lectures = await LectureModel.find({ $or: modulesId });
+          const completedLectures = await CompletedLectureModel.find({ enrollmentId });
+
+          return completedLectures.length / lectures.length;
+     });
+}

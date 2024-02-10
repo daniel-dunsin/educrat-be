@@ -26,24 +26,6 @@ EnrollmentSchema.virtual('completedLectures', {
      localField: '_id',
 });
 
-EnrollmentSchema.virtual('progress', {
-     justOne: true,
-     getters: true,
-     localField: '_id',
-     foreignField: '_id',
-     get: async function (this): Promise<number> {
-          const { courseId, enrollmentId } = this;
-
-          return await ModuleModel.find({ courseId }).then(async (modules) => {
-               const modulesId = modules.map((module) => ({ moduleId: module._id }));
-               const lectures = await LectureModel.find({ $or: modulesId });
-               const completedLectures = await CompletedLectureModel.find({ enrollmentId });
-
-               return completedLectures.length / lectures.length;
-          });
-     },
-});
-
 const EnrollmentModel = mongoose.model(Collections.ENROLLMENT, EnrollmentSchema);
 
 export default EnrollmentModel;
