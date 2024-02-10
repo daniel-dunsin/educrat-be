@@ -1,11 +1,14 @@
-import mongoose, { DefaultSchemaOptions, SchemaDefinition } from 'mongoose';
+import mongoose, { DefaultSchemaOptions, SchemaDefinition, SchemaOptions } from 'mongoose';
 
-export default function createSchema<T = unknown>(schema: SchemaDefinition<T>, options?: DefaultSchemaOptions) {
+export default function createSchema<T = unknown>(
+     schema: SchemaDefinition<T>,
+     options?: SchemaOptions<T> | DefaultSchemaOptions
+) {
      return new mongoose.Schema<T>(schema, {
           timestamps: true,
           virtuals: true,
           toJSON: { virtuals: true },
           toObject: { virtuals: true },
-          ...options,
+          ...(options as Omit<DefaultSchemaOptions, 'timestamps'>),
      });
 }

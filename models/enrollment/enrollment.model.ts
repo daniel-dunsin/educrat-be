@@ -19,7 +19,6 @@ const EnrollmentSchema = createSchema<Enrollment>({
           required: true,
      },
 });
-
 EnrollmentSchema.virtual('completedLectures', {
      justOne: false,
      ref: Collections.COMPLETED_LECTURES,
@@ -30,11 +29,15 @@ EnrollmentSchema.virtual('completedLectures', {
 EnrollmentSchema.virtual('progress', {
      justOne: true,
      getters: true,
-     async get(): Promise<number> {
-          return await ModuleModel.find({ courseId: this.courseId }).then(async (modules) => {
+     localField: '_id',
+     foreignField: '_id',
+     get: async function (this): Promise<number> {
+          const { courseId, enrollmentId } = this;
+
+          return await ModuleModel.find({ courseId }).then(async (modules) => {
                const modulesId = modules.map((module) => ({ moduleId: module._id }));
                const lectures = await LectureModel.find({ $or: modulesId });
-               const completedLectures = await CompletedLectureModel.find({ enrollmentId: this._id });
+               const completedLectures = await CompletedLectureModel.find({ enrollmentId });
 
                return completedLectures.length / lectures.length;
           });

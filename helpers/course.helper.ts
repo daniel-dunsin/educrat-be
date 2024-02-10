@@ -1,3 +1,6 @@
+import CompletedLectureModel from '../models/enrollment/completed-lectures.model';
+import LectureModel from '../models/lecture/lecture.model';
+import ModuleModel from '../models/module/module.model';
 import { Course } from '../schema/interfaces/course.interface';
 
 export function isCoursePublishable(course: Course): boolean {

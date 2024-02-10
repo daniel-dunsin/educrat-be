@@ -80,14 +80,9 @@ export async function getSingleCourse(id: string) {
                .populate({ path: 'userId', select: '-profilePictureId' })
                .populate({
                     path: 'modules',
-                    select: '-courseId',
                     populate: {
                          path: 'lectures',
-                         select: '-moduleId',
-                         populate: [
-                              { path: 'content', select: '-lectureId' },
-                              { path: 'resources', select: '-lectureId' },
-                         ],
+                         populate: [{ path: 'content' }, { path: 'resources' }],
                     },
                });
 

@@ -7,6 +7,7 @@ import {
      createLectureController,
      deleteLectureController,
      getLecturesController,
+     getSingleLectureController,
      updateLectureController,
 } from '../../controllers/lecture/lecture.controller';
 import { createLectureInput, updateLectureInput } from '../../schema/validators/lecture.validator';
@@ -22,6 +23,9 @@ lectureRoutes.post(
      validate(createLectureInput),
      createLectureController
 );
+
+lectureRoutes.get('/:id', authenticate, permit([RoleNames.INSTRUCTOR]), getSingleLectureController);
+
 lectureRoutes.put(
      '/:id',
      authenticate,

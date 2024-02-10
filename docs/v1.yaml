@@ -753,6 +753,19 @@ paths:
         description: "The lecture Id"
         schema:
           type: string
+    get:
+      description: "Get a lecture"
+      security:
+        - bearer: []
+      tags:
+        - lectures
+      responses:
+        200:
+          description: "success response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lecture"
     put:
       description: "Update a lecture"
       security:

@@ -20,10 +20,8 @@ export async function getSingleEnrollment(enrollmentId: string) {
                     path: 'courseId',
                     populate: {
                          path: 'modules',
-                         select: '-courseId',
                          populate: {
                               path: 'lectures',
-                              select: '-moduleId',
                               populate: [{ path: 'content' }, { path: 'resources' }],
                          },
                     },
@@ -43,30 +41,35 @@ export async function getSingleEnrollment(enrollmentId: string) {
 export async function getUserEnrollments(userId: string) {
      const enrollments = await EnrollmentModel.find({ userId })
           .populate([{ path: 'courseId' }, { path: 'progress' }])
-          .select('-userId');
+          .select('+progress');
 
      return enrollments;
 }
 
 export async function markLectureAsCompleted(data: CompletedLectureDTO) {
-     const lecture = await CompletedLectureModel.findOne({
-          lectureId: data.lectureId,
-          enrollmentId: data.enrollmentId,
-     });
+     return await EnrollmentModel.findById(data.enrollmentId).then(async (enrollment) => {
+          if (!enrollment) throw new ServiceException(404, 'Enrollment not found');
 
-     if (lecture) throw new ServiceException(400, 'Lecture has been marked as completed');
-
-     return await CompletedLectureModel.create({
-          lectureId: data.lectureId,
-          enrollmentId: data.enrollmentId,
+          const lecture = await CompletedLectureModel.findOne({
+               lectureId: data.lectureId,
+               enrollmentId: data.enrollmentId,
+          });
+          if (lecture) throw new ServiceException(400, 'Lecture has been marked as completed');
+          return await CompletedLectureModel.create({
+               lectureId: data.lectureId,
+               enrollmentId: data.enrollmentId,
+          });
      });
 }
 
 export async function markLectureAsUncompleted(data: CompletedLectureDTO) {
-     const lecture = await CompletedLectureModel.findOneAndDelete({
-          lectureId: data.lectureId,
-          enrollmentId: data.enrollmentId,
-     });
+     return await EnrollmentModel.findById(data.enrollmentId).then(async (enrollment) => {
+          if (!enrollment) throw new ServiceException(404, 'Enrollment not found');
+          const lecture = await CompletedLectureModel.findOneAndDelete({
+               lectureId: data.lectureId,
+               enrollmentId: data.enrollmentId,
+          });
 
-     if (!lecture) throw new ServiceException(400, 'Lecture as not been marked as completed');
+          if (!lecture) throw new ServiceException(400, 'Lecture as not been marked as completed');
+     });
 }

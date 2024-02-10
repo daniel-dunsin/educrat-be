@@ -45,6 +45,12 @@ export async function deleteLecture(lectureId: string) {
      return lecture;
 }
 
+export async function getSingleLecture(lectureId: string) {
+     const lecture = await LectureModel.findById(lectureId).populate([{ path: 'resources' }, { path: 'content' }]);
+
+     return lecture;
+}
+
 export async function getLectures(moduleId: string) {
      return await LectureModel.find({ moduleId }).populate({ path: 'resources' }).populate({ path: 'content' });
 }

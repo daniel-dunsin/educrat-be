@@ -8,6 +8,7 @@ export interface Enrollment extends DefaultModel {
      courseId: Relations<Course>;
      userId: Relations<User>;
      completedLectures: CompletedLecture[];
+     progress: number;
 }
 
 export interface CompletedLecture extends DefaultModel {
