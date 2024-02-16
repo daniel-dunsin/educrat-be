@@ -1038,6 +1038,122 @@ paths:
               schema:
                 $ref: "#/components/schemas/LectureVideo"
 
+  # ====================== ENROLLMENT ===================
+  /enrollment/course/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: "the course id"
+    post:
+      security:
+        - bearer: []
+      tags:
+        - enrollments
+      requestBody:
+        required: false
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enrollment"
+  /enrollment:
+    get:
+      security:
+        - bearer: []
+      tags:
+        - enrollments
+      responses:
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Enrollment"
+
+  /enrollment/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      security:
+        - bearer: []
+      tags:
+        - enrollments
+      responses:
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enrollment"
+
+  /enrollment/{id}/lecture/complete:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      security:
+        - bearer: []
+      tags:
+        - enrollments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lectureId:
+                  type: string
+      responses:
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enrollment"
+
+  /enrollment/{id}/lecture/unfinished:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      security:
+        - bearer: []
+      tags:
+        - enrollments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lectureId:
+                  type: string
+      responses:
+        200:
+          description: "Success Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enrollment"
+
 components:
   schemas:
     # Defaults
@@ -1220,6 +1336,19 @@ components:
           type: string
         duration:
           type: number
+    Enrollment:
+      type: object
+      properties:
+        lectureId:
+          type: string
+        userId:
+          type: string
+        progress:
+          type: number
+        completedLectures:
+          type: array
+          items:
+            $ref: "#/components/schemas/Lecture"
 
   securitySchemes:
     bearer:
@@ -1232,3 +1361,4 @@ tags:
   - name: course
   - name: modules
   - name: lectures
+  - name: enrollments
